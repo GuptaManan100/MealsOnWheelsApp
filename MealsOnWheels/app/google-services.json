@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "755544742392-f6cim33qvf52aog5o3fj53s7fb2pn2ki.apps.googleusercontent.com",
+          "client_id": "755544742392-cnf6t5b4sa1imkbreg6u136e9kaj3bmi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.mealsonwheels",
@@ -32,7 +32,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "755544742392-c52cbu653l4t583dalub2eesm5la1pd8.apps.googleusercontent.com",
+              "client_id": "755544742392-7p01maovpemddhc3q4edkesmtnosc5q1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
