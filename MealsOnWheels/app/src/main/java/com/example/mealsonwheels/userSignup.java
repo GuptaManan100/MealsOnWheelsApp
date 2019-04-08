@@ -11,11 +11,16 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class userSignup extends AppCompatActivity {
 
@@ -29,6 +34,9 @@ public class userSignup extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private String address;
     private String Phone;
+    private String emailId;
+    private String Name;
+    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +73,8 @@ public class userSignup extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    PhoneLayout.setError("Enter a valid Address");
+                if (s.length() != 10 ) {
+                    PhoneLayout.setError("Enter a valid Phone Number");
                     PhoneLayout.setErrorEnabled(true);
                 } else {
                     PhoneLayout.setErrorEnabled(false);
@@ -84,11 +92,11 @@ public class userSignup extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() < 10 ) {
-                    PhoneLayout.setError("Enter a valid Phone Number");
-                    PhoneLayout.setErrorEnabled(true);
+                if (s.length() == 0 ) {
+                    AddressLayout.setError("Enter a valid Address");
+                    AddressLayout.setErrorEnabled(true);
                 } else {
-                    PhoneLayout.setErrorEnabled(false);
+                    AddressLayout.setErrorEnabled(false);
                 }
             }
 
@@ -98,7 +106,53 @@ public class userSignup extends AppCompatActivity {
             }
         });
 
+        ref = FirebaseDatabase.getInstance().getReference("Users");
 
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Phone = phoneNumText.getText().toString();
+                address = AddressText.getText().toString();
+                User newUser = new User(address,emailId,Name,Phone);
+                //Toast.makeText(userSignup.this, newUser.toString(), Toast.LENGTH_LONG).show();
+                if(Phone.length()==10 && address.length()>0)
+                {
+                    //Add the user.
+                    String id = ref.push().getKey();
+                    ref.child(id).setValue(newUser);
+                    Toast.makeText(userSignup.this, "You are now registered!", Toast.LENGTH_SHORT).show();
+                    Intent mainIntent = new Intent(userSignup.this, userHomePage.class);
+                    startActivity(mainIntent);
+                    finish();
+                    //Toast.makeText(userSignup.this, newUser.toString(), Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    if(Phone.length()!=10)
+                    {
+                        phoneNumText.setText("");
+                    }
+                    else
+                    {
+                        AddressText.setHint("Enter a valid address");
+                    }
+                }
+            }
+        });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            Name = acct.getDisplayName();
+            emailId = acct.getEmail();
+        }
+        else{
+            Name = "error";
+            emailId = "error";
+        }
     }
 }

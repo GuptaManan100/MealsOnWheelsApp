@@ -142,13 +142,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         //All children Access
+        checkIfUserExists(user);
+
+        Toast.makeText(this, "You are not yet registered!", Toast.LENGTH_SHORT).show();
+        Intent mainIntent = new Intent(MainActivity.this, userSignup.class);
+        startActivity(mainIntent);
+        finish();
+        signInButton.setEnabled(true);
+    }
+
+    private void checkIfUserExists(FirebaseUser user) {
         emailId = user.getEmail();
         myRefUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     User curr = child.getValue(User.class);
-                    if(curr.getEmail()==emailId)
+                    Log.d("Login",curr.getEmail());
+                    if(curr.getEmail().equals(emailId))
                     {
                         Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                         Intent mainIntent = new Intent(MainActivity.this, userHomePage.class);
@@ -170,7 +181,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Vendor curr = child.getValue(Vendor.class);
-                    if(curr.getEmail()==emailId)
+                    Log.d("Login",curr.getEmail());
+                    if(curr.getEmail().equals(emailId))
                     {
                         Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                         Intent mainIntent = new Intent(MainActivity.this, vendorHomePage.class);
@@ -191,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Deliverer curr = child.getValue(Deliverer.class);
-                    if(curr.getEmail()==emailId)
+                    Log.d("Login",curr.getEmail());
+                    if(curr.getEmail().equals(emailId))
                     {
                         Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                         Intent mainIntent = new Intent(MainActivity.this, deliveryHomePage.class);
@@ -206,14 +219,5 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-
-        if(!isFinishing()) {
-            Toast.makeText(this, "You are not yet registered!", Toast.LENGTH_SHORT).show();
-            Intent mainIntent = new Intent(MainActivity.this, userSignup.class);
-            startActivity(mainIntent);
-            finish();
-        }
-
-        signInButton.setEnabled(true);
     }
 }
