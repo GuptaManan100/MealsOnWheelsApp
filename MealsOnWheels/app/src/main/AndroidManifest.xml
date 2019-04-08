@@ -9,9 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".VendorAddItem"></activity>
+        <activity android:name=".Vendor_Details" />
+        <activity android:name=".VendorCurrentOrder" />
+        <activity android:name=".Menu_Page" />
+        <activity android:name=".VendorHomePage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".userHomePage"
-            android:label="@string/title_activity_user_home_page"></activity>
+            android:label="@string/title_activity_user_home_page" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
