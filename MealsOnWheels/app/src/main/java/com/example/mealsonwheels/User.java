@@ -1,16 +1,19 @@
 package com.example.mealsonwheels;
 
 public class User {
-    String DeliveryAddress;
-    String Email;
-    String Name;
-    String Phone;
+    private String DeliveryAddress;
+    private String Email;
+    private String Name;
+    private String Phone;
 
     public User(String deliveryAddress, String email, String name, String phone) {
         DeliveryAddress = deliveryAddress;
         Email = email;
         Name = name;
         Phone = phone;
+    }
+
+    public User() {
     }
 
     public String getDeliveryAddress() {
@@ -43,5 +46,15 @@ public class User {
 
     public void setPhone(String phone) {
         Phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "DeliveryAddress='" + DeliveryAddress + '\'' +
+                ", Email='" + Email + '\'' +
+                ", Name='" + Name + '\'' +
+                ", Phone='" + Phone + '\'' +
+                '}';
     }
 }

@@ -1,13 +1,16 @@
 package com.example.mealsonwheels;
 
 public class Vendor {
-    String Address;
-    String Email;
-    String Name;
-    String Phone;
-    int OpeningTime;
-    int ClosingTime;
-    String Type;
+    private String Address;
+    private String Email;
+    private String Name;
+    private String Phone;
+    private int OpeningTime;
+    private int ClosingTime;
+    private String Type;
+
+    public Vendor() {
+    }
 
     public Vendor(String address, String email, String name, String phone, int openingTime, int closingTime, String type) {
         Address = address;
@@ -17,6 +20,19 @@ public class Vendor {
         OpeningTime = openingTime;
         ClosingTime = closingTime;
         Type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Vendor{" +
+                "Address='" + Address + '\'' +
+                ", Email='" + Email + '\'' +
+                ", Name='" + Name + '\'' +
+                ", Phone='" + Phone + '\'' +
+                ", OpeningTime=" + OpeningTime +
+                ", ClosingTime=" + ClosingTime +
+                ", Type='" + Type + '\'' +
+                '}';
     }
 
     public String getAddress() {

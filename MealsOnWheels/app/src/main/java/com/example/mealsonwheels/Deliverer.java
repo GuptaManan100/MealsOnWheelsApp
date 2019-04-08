@@ -1,11 +1,11 @@
 package com.example.mealsonwheels;
 
 public class Deliverer {
-    String Address;
-    String Email;
-    String Name;
-    String Phone;
-    String IsFree;
+    private String Address;
+    private String Email;
+    private String Name;
+    private String Phone;
+    private String IsFree;
 
     public Deliverer(String address, String email, String name, String phone, String isFree) {
         Address = address;
@@ -13,6 +13,9 @@ public class Deliverer {
         Name = name;
         Phone = phone;
         IsFree = isFree;
+    }
+
+    public Deliverer() {
     }
 
     public String getAddress() {
@@ -53,6 +56,17 @@ public class Deliverer {
 
     public void setIsFree(String isFree) {
         IsFree = isFree;
+    }
+
+    @Override
+    public String toString() {
+        return "Deliverer{" +
+                "Address='" + Address + '\'' +
+                ", Email='" + Email + '\'' +
+                ", Name='" + Name + '\'' +
+                ", Phone='" + Phone + '\'' +
+                ", IsFree='" + IsFree + '\'' +
+                '}';
     }
 }
 

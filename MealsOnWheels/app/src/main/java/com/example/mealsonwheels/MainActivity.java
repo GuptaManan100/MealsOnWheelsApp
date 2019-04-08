@@ -25,6 +25,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -36,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     private final static int RC_SIGN_IN = 2;
     GoogleSignInClient mGoogleSignInClient;
+    FirebaseDatabase database;
+    DatabaseReference myRefUser;
+    DatabaseReference myRef;
+    DatabaseReference myRefVendor;
+    DatabaseReference myRefDeliverer;
+    String emailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
         signInButton = (SignInButton) findViewById(R.id.signInButton);
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRefUser = database.getReference("Users");
+        myRefVendor = database.getReference("Vendors");
+        myRefDeliverer = database.getReference("Deliverers");
+        myRef = database.getReference();
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -84,12 +100,14 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
+                signInButton.setEnabled(false);
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
                 Log.w("Login", "Google sign in failed" + e.getMessage(), e);
+                signInButton.setEnabled(true);
                 // ...
             }
         }
@@ -105,11 +123,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            signInButton.setEnabled(false);
                             Log.d("Login", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
+                            signInButton.setEnabled(true);
                             Log.w("Login", "signInWithCredential:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Login Failure", Toast.LENGTH_LONG).show();
                             //updateUI(null);
@@ -121,8 +141,74 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-        Intent mainIntent = new Intent(MainActivity.this, userHomePage.class);
-        startActivity(mainIntent);
-        finish();
+        //All children Access
+        emailId = user.getEmail();
+        myRefUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    User curr = child.getValue(User.class);
+                    if(curr.getEmail()==emailId)
+                    {
+                        Toast.makeText(MainActivity.this, "Login Successfull", Toast.LENGTH_LONG).show();
+                        Intent mainIntent = new Intent(MainActivity.this, userHomePage.class);
+
+                        startActivity(mainIntent);
+                        finish();
+                    }
+                    //Toast.makeText(MainActivity.this, curr.toString(), Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        myRefVendor.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Vendor curr = child.getValue(Vendor.class);
+                    if(curr.getEmail()==emailId)
+                    {
+                        Toast.makeText(MainActivity.this, "Login Successfull", Toast.LENGTH_LONG).show();
+                        Intent mainIntent = new Intent(MainActivity.this, vendorHomePage.class);
+                        startActivity(mainIntent);
+                        finish();
+                    }
+                    //Toast.makeText(MainActivity.this, curr.toString(), Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        myRefDeliverer.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Deliverer curr = child.getValue(Deliverer.class);
+                    if(curr.getEmail()==emailId)
+                    {
+                        Toast.makeText(MainActivity.this, "Login Successfull", Toast.LENGTH_LONG).show();
+                        Intent mainIntent = new Intent(MainActivity.this, deliveryHomePage.class);
+                        startActivity(mainIntent);
+                        finish();
+                    }
+                    //Toast.makeText(MainActivity.this, curr.toString(), Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
+        Toast.makeText(this, "You are not yet registered", Toast.LENGTH_SHORT).show();
+
     }
 }
