@@ -37,16 +37,16 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    SignInButton signInButton;
-    FirebaseAuth mAuth;
+    private SignInButton signInButton;
+    private FirebaseAuth mAuth;
     private final static int RC_SIGN_IN = 2;
-    GoogleSignInClient mGoogleSignInClient;
-    FirebaseDatabase database;
-    DatabaseReference myRefUser;
-    DatabaseReference myRef;
-    DatabaseReference myRefVendor;
-    DatabaseReference myRefDeliverer;
-    String emailId;
+    private GoogleSignInClient mGoogleSignInClient;
+    private FirebaseDatabase database;
+    private DatabaseReference myRefUser;
+    private DatabaseReference myRef;
+    private DatabaseReference myRefVendor;
+    private DatabaseReference myRefDeliverer;
+    private String emailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     User curr = child.getValue(User.class);
                     if(curr.getEmail()==emailId)
                     {
-                        Toast.makeText(MainActivity.this, "Login Successfull", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                         Intent mainIntent = new Intent(MainActivity.this, userHomePage.class);
 
                         startActivity(mainIntent);
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                     Vendor curr = child.getValue(Vendor.class);
                     if(curr.getEmail()==emailId)
                     {
-                        Toast.makeText(MainActivity.this, "Login Successfull", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                         Intent mainIntent = new Intent(MainActivity.this, vendorHomePage.class);
                         startActivity(mainIntent);
                         finish();
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                     Deliverer curr = child.getValue(Deliverer.class);
                     if(curr.getEmail()==emailId)
                     {
-                        Toast.makeText(MainActivity.this, "Login Successfull", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                         Intent mainIntent = new Intent(MainActivity.this, deliveryHomePage.class);
                         startActivity(mainIntent);
                         finish();
@@ -207,8 +207,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if(!isFinishing()) {
+            Toast.makeText(this, "You are not yet registered!", Toast.LENGTH_SHORT).show();
+            Intent mainIntent = new Intent(MainActivity.this, userSignup.class);
+            startActivity(mainIntent);
+            finish();
+        }
 
-        Toast.makeText(this, "You are not yet registered", Toast.LENGTH_SHORT).show();
-
+        signInButton.setEnabled(true);
     }
 }
