@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,13 +53,14 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference myRefVendor;
     private DatabaseReference myRefDeliverer;
     private String emailId;
+    private ProgressBar bar1;
 
-    private TaskCompletionSource<DataSnapshot> userSource = new TaskCompletionSource<>();
-    private Task userTask = userSource.getTask();
-    private TaskCompletionSource<DataSnapshot> venSource = new TaskCompletionSource<>();
-    private Task vendorTask = venSource.getTask();
-    private TaskCompletionSource<DataSnapshot> delivererSource = new TaskCompletionSource<>();
-    private Task delivererTask = delivererSource.getTask();
+    private TaskCompletionSource<DataSnapshot> userSource;
+    private Task userTask;
+    private TaskCompletionSource<DataSnapshot> venSource;
+    private Task vendorTask;
+    private TaskCompletionSource<DataSnapshot> delivererSource;
+    private Task delivererTask;
 
     private Task<Void> allTask;
 
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        bar1 = (ProgressBar) findViewById(R.id.progressBar1);
         signInButton = (SignInButton) findViewById(R.id.signInButton);
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         myRef = database.getReference();
 
         // Configure Google Sign In
+        bar1.setVisibility(View.INVISIBLE);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("755544742392-7p01maovpemddhc3q4edkesmtnosc5q1.apps.googleusercontent.com")
                 .requestEmail()
@@ -91,16 +94,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null)
-            updateUI(currentUser);
-    }
-
     private void signIn() {
+        userSource = new TaskCompletionSource<>();
+        userTask = userSource.getTask();
+        venSource = new TaskCompletionSource<>();
+        vendorTask = venSource.getTask();
+        delivererSource = new TaskCompletionSource<>();
+        delivererTask = delivererSource.getTask();
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 signInButton.setEnabled(false);
+                bar1.setVisibility(View.VISIBLE);
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
                 Log.w("Login", "Google sign in failed" + e.getMessage(), e);
                 signInButton.setEnabled(true);
+                bar1.setVisibility(View.INVISIBLE);
                 // ...
             }
         }
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             signInButton.setEnabled(false);
+                            bar1.setVisibility(View.VISIBLE);
                             Log.d("Login", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
@@ -145,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             mGoogleSignInClient.signOut();
                             signInButton.setEnabled(true);
+                            bar1.setVisibility(View.INVISIBLE);
                             Log.w("Login", "signInWithCredential:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Login Failure", Toast.LENGTH_LONG).show();
                             //updateUI(null);
@@ -157,33 +161,41 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         //All children Access
-
+        try {
         checkIfUserExists(user);
         checkIfDelivererExists(user);
         checkIfVendorExists(user);
-
-        allTask = Tasks.whenAll(userTask, vendorTask, delivererTask);
-        allTask.addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                if(!isFinishing()) {
-                    Toast.makeText(MainActivity.this, "You are not yet registered!", Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(MainActivity.this, userSignup.class);
-                    startActivity(mainIntent);
-                    finish();
+            allTask = Tasks.whenAll(userTask, vendorTask, delivererTask);
+            allTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    if (!isFinishing()) {
+                        Toast.makeText(MainActivity.this, "You are not yet registered!", Toast.LENGTH_SHORT).show();
+                        Intent mainIntent = new Intent(MainActivity.this, userSignup.class);
+                        startActivity(mainIntent);
+                        finish();
+                    }
                 }
-            }
-        });
-        allTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
-                signInButton.setEnabled(true);
-            }
-        });
+            });
+            allTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(MainActivity.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
+                    signInButton.setEnabled(true);
+                    bar1.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+        catch(Exception e)
+        {
+            Log.e("Login",e.getMessage());
+            signInButton.setEnabled(true);
+            bar1.setVisibility(View.INVISIBLE);
+            Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void checkIfUserExists(FirebaseUser user)
+    private void checkIfUserExists (FirebaseUser user)
     {
         emailId = user.getEmail();
         Query query = myRefUser.orderByChild("email").equalTo(emailId);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.ButtonBarLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -137,34 +138,35 @@ public class userSignup extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Phone = phoneNumText.getText().toString();
-                address = AddressText.getText().toString() + ',' + CityText.getText().toString();
-                User newUser = new User(address,emailId,Name,Phone);
-                //Toast.makeText(userSignup.this, newUser.toString(), Toast.LENGTH_LONG).show();
-                if(Phone.length()==10 && CityText.getText().toString().length()>0 && AddressText.getText().toString().length()>0)
-                {
-                    //Add the user.
-                    String id = ref.push().getKey();
-                    ref.child(id).setValue(newUser);
-                    Toast.makeText(userSignup.this, "You are now registered!", Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(userSignup.this, userHomePage.class);
-                    startActivity(mainIntent);
-                    finish();
+                try {
+                    Phone = phoneNumText.getText().toString();
+                    address = AddressText.getText().toString() + ',' + CityText.getText().toString();
+                    User newUser = new User(address, emailId, Name, Phone);
                     //Toast.makeText(userSignup.this, newUser.toString(), Toast.LENGTH_LONG).show();
+                    if (Phone.length() == 10 && CityText.getText().toString().length() > 0 && AddressText.getText().toString().length() > 0) {
+                        //Add the user.
+                        String id = ref.push().getKey();
+                        ref.child(id).setValue(newUser);
+                        Toast.makeText(userSignup.this, "You are now registered!", Toast.LENGTH_SHORT).show();
+                        Intent mainIntent = new Intent(userSignup.this, userHomePage.class);
+                        startActivity(mainIntent);
+                        finish();
+                        //Toast.makeText(userSignup.this, newUser.toString(), Toast.LENGTH_LONG).show();
+                    } else {
+                        if (Phone.length() != 10) {
+                            phoneNumText.setText("");
+                        } else {
+                            AddressText.setHint("Enter a valid address");
+                            AddressText.setText("");
+                            CityText.setText("");
+                            CityText.setHint("Enter a valid City");
+                        }
+                    }
                 }
-                else
+                catch(Exception e)
                 {
-                    if(Phone.length()!=10)
-                    {
-                        phoneNumText.setText("");
-                    }
-                    else
-                    {
-                        AddressText.setHint("Enter a valid address");
-                        AddressText.setText("");
-                        CityText.setText("");
-                        CityText.setHint("Enter a valid City");
-                    }
+                    Log.e("SignUp",e.getMessage());
+                    Toast.makeText(userSignup.this, "SignUp Failed!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
