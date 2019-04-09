@@ -28,8 +28,10 @@ public class userSignup extends AppCompatActivity {
     private Button LogOutButton;
     private EditText phoneNumText;
     private EditText AddressText;
+    private EditText CityText;
     private TextInputLayout AddressLayout;
     private TextInputLayout PhoneLayout;
+    private TextInputLayout CityLayout;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private String address;
@@ -48,6 +50,8 @@ public class userSignup extends AppCompatActivity {
         LogOutButton = (Button) findViewById(R.id.LogOutButt);
         phoneNumText = (EditText) findViewById(R.id.PhoneText);
         AddressText = (EditText) findViewById(R.id.AddressText);
+        CityText = (EditText) findViewById(R.id.cityText);
+        CityLayout = (TextInputLayout) findViewById(R.id.city_text_input_layout);
         mAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("755544742392-7p01maovpemddhc3q4edkesmtnosc5q1.apps.googleusercontent.com")
@@ -106,16 +110,38 @@ public class userSignup extends AppCompatActivity {
             }
         });
 
+        CityLayout.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0 ) {
+                    CityLayout.setError("Enter a valid city");
+                    CityLayout.setErrorEnabled(true);
+                } else {
+                    CityLayout.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         ref = FirebaseDatabase.getInstance().getReference("Users");
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Phone = phoneNumText.getText().toString();
-                address = AddressText.getText().toString();
+                address = AddressText.getText().toString() + ',' + CityText.getText().toString();
                 User newUser = new User(address,emailId,Name,Phone);
                 //Toast.makeText(userSignup.this, newUser.toString(), Toast.LENGTH_LONG).show();
-                if(Phone.length()==10 && address.length()>0)
+                if(Phone.length()==10 && CityText.getText().toString().length()>0 && AddressText.getText().toString().length()>0)
                 {
                     //Add the user.
                     String id = ref.push().getKey();
@@ -135,6 +161,9 @@ public class userSignup extends AppCompatActivity {
                     else
                     {
                         AddressText.setHint("Enter a valid address");
+                        AddressText.setText("");
+                        CityText.setText("");
+                        CityText.setHint("Enter a valid City");
                     }
                 }
             }

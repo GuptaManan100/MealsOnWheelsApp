@@ -3,12 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ScrollView01"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".userSignup">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/city_text_input_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_text_input_layout">
+
+        <EditText
+            android:id="@+id/cityText"
+            android:layout_width="369dp"
+            android:layout_height="47dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="City"
+            android:inputType="textPostalAddress"
+            android:lines="3"
+            android:scrollbars="vertical"
+            android:scrollHorizontally="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.617"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="352dp" />
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/address_text_input_layout"
@@ -28,11 +56,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:ems="10"
-            android:hint="Address"
+            android:hint="Address Line 1"
+            android:inputType="textPostalAddress"
             android:lines="3"
-            android:scrollHorizontally="false"
             android:scrollbars="vertical"
-            android:inputType="textPostalAddress|textMultiLine"
+            android:scrollHorizontally="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="204dp" />
@@ -72,13 +100,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="16dp"
         android:text="Sign Up!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address_text_input_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/city_text_input_layout" />
 
     <Button
         android:id="@+id/LogOutButt"
@@ -87,10 +115,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Log Out"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpButt" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpButt"
+        />
 </android.support.constraint.ConstraintLayout>
 </ScrollView>
