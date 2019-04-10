@@ -6,17 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class userHomePage extends AppCompatActivity {
@@ -28,22 +23,33 @@ public class userHomePage extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment newFrag = null;
-            switch (item.getItemId()) {
-                case R.id.navigation_near_me:
-                    newFrag = new nearMeFragment();
-                case R.id.navigation_explore:
-                    newFrag = new exploreFragment();
-                case R.id.navigation_cart:
-                    newFrag = new cartFragment();
-                case R.id.navigation_account:
-                    newFrag = new accountFragment();
+            try {
+                Fragment newFrag = null;
+                switch (item.getItemId()) {
+                    case R.id.navigation_near_me:
+                        newFrag = new nearMeFragment();
+                        break;
+                    case R.id.navigation_explore:
+                        newFrag = new exploreFragment();
+                        break;
+                    case R.id.navigation_cart:
+                        newFrag = new cartFragment();
+                        break;
+                    case R.id.navigation_account:
+                        newFrag = new accountFragment();
+                        break;
+                }
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("userinfo", currUser);
+                bundle.putString("userID", id);
+                newFrag.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, newFrag).commit();
             }
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("userinfo",currUser);
-            bundle.putString("userID",id);
-            newFrag.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,newFrag).commit();
+            catch (Exception e)
+            {
+                Log.e("Navigation","Error Occurred" + e.getMessage());
+            }
             return true;
         }
     };
@@ -55,7 +61,7 @@ public class userHomePage extends AppCompatActivity {
         currUser = (User) getIntent().getSerializableExtra("userinfo");
         id = getIntent().getStringExtra("userID");
         //mAuth = FirebaseAuth.getInstance();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation =  findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Fragment newFrag = new nearMeFragment();
