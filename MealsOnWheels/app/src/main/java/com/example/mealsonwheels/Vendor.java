@@ -1,6 +1,8 @@
 package com.example.mealsonwheels;
 
-public class Vendor {
+import java.io.Serializable;
+
+public class Vendor  implements Serializable {
     private String Address;
     private String Email;
     private String Name;

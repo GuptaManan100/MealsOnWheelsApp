@@ -204,8 +204,11 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren())
                 {
+                    User curr = child.getValue(User.class);
                     Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(MainActivity.this, userHomePage.class);
+                    mainIntent.putExtra("userinfo",curr);
+                    mainIntent.putExtra("userID",child.getKey());
                     startActivity(mainIntent);
                     finish();
                 }

@@ -149,6 +149,8 @@ public class userSignup extends AppCompatActivity {
                         ref.child(id).setValue(newUser);
                         Toast.makeText(userSignup.this, "You are now registered!", Toast.LENGTH_SHORT).show();
                         Intent mainIntent = new Intent(userSignup.this, userHomePage.class);
+                        mainIntent.putExtra("userinfo",newUser);
+                        mainIntent.putExtra("userID",id);
                         startActivity(mainIntent);
                         finish();
                         //Toast.makeText(userSignup.this, newUser.toString(), Toast.LENGTH_LONG).show();
