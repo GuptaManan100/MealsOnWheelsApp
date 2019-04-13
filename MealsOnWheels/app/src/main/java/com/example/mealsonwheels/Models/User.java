@@ -1,4 +1,4 @@
-package com.example.mealsonwheels;
+package com.example.mealsonwheels.Models;
 
 import java.io.Serializable;
 
