@@ -1,6 +1,7 @@
 package com.example.mealsonwheels.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import com.example.mealsonwheels.Interfaces.ItemClickListener;
 import com.example.mealsonwheels.Models.Vendor;
 import com.example.mealsonwheels.R;
 import com.example.mealsonwheels.ViewHolder.RestrauntViewHolder;
+import com.example.mealsonwheels.restrauntPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +49,18 @@ public class RestrauntAdapter extends RecyclerView.Adapter<RestrauntViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RestrauntViewHolder holder, int i) {
+        final Vendor curr = vendorList.get(i);
         holder.res_name.setText(vendorList.get(i).getName());
+        holder.res_type.setText(vendorList.get(i).getType());
+        holder.res_address.setText(vendorList.get(i).getAddress());
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                Toast.makeText(context, "It works!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "It works!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
+                Intent mainIntent = new Intent(context, restrauntPage.class);
+                mainIntent.putExtra("vendorInfo",curr);
+                context.startActivity(mainIntent);
             }
         });
     }

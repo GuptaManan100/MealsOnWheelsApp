@@ -29,8 +29,8 @@ public class userHomePage extends AppCompatActivity {
                     case R.id.navigation_explore:
                         newFrag = new exploreFragment();
                         break;
-                    case R.id.navigation_cart:
-                        newFrag = new cartFragment();
+                    case R.id.navigation_orderHistory:
+                        newFrag = new orderHistoryFragment();
                         break;
                     case R.id.navigation_account:
                         newFrag = new accountFragment();

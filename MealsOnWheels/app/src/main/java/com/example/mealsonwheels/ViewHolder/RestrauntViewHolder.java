@@ -14,6 +14,8 @@ import org.w3c.dom.Text;
 public class RestrauntViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView res_name;
+    public TextView res_address;
+    public TextView res_type;
     public ImageView res_image;
 
     private ItemClickListener itemClickListener;
@@ -23,7 +25,8 @@ public class RestrauntViewHolder extends RecyclerView.ViewHolder implements View
         super(itemView);
         res_name = (TextView) itemView.findViewById(R.id.restraunt_name);
         res_image = (ImageView) itemView.findViewById(R.id.restraunt_image);
-
+        res_address = (TextView) itemView.findViewById(R.id.restraunt_address);
+        res_type = (TextView) itemView.findViewById(R.id.restraunt_type);
         itemView.setOnClickListener(this);
 
     }

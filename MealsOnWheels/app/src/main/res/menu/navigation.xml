@@ -12,8 +12,8 @@
         android:title="Explore" />
 
     <item
-        android:id="@+id/navigation_cart"
-        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:id="@+id/navigation_orderHistory"
+        android:icon="@drawable/ic_history_black_24dp"
         android:title="Cart" />
 
     <item
