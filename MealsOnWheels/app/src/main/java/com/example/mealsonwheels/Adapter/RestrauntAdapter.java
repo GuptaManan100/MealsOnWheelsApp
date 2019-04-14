@@ -27,7 +27,12 @@ public class RestrauntAdapter extends RecyclerView.Adapter<RestrauntViewHolder> 
         this.vendorList = new ArrayList<>();
         this.context = context;
     }
-
+    public void clearAll()
+    {
+        int initsize = vendorList.size();
+        vendorList.clear();
+        notifyItemRangeChanged(initsize,-1*initsize);
+    }
     public void addAll(List<Vendor> newVend)
     {
         int initsize = vendorList.size();
@@ -53,6 +58,8 @@ public class RestrauntAdapter extends RecyclerView.Adapter<RestrauntViewHolder> 
         holder.res_name.setText(vendorList.get(i).getName());
         holder.res_type.setText(vendorList.get(i).getType());
         holder.res_address.setText(vendorList.get(i).getAddress());
+        holder.res_rating.setText(vendorList.get(i).getRating());
+        holder.res_avgPrice.setText("Rs."+vendorList.get(i).getAvgPrice()+"/person");
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {

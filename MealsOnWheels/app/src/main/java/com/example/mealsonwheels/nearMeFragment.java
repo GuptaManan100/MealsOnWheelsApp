@@ -35,6 +35,7 @@ public class nearMeFragment extends Fragment {
     private TextView textV;
     private User currUser;
     private String id;
+    private String city;
 
     private RecyclerView recycler_restraunt;
     private RestrauntAdapter adapter;
@@ -53,7 +54,7 @@ public class nearMeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         textV = (TextView) view.findViewById(R.id.textView);
         textV.setText(currUser.getDeliveryAddress());
-        
+        city = splitString(currUser.getDeliveryAddress());
         recycler_restraunt = (RecyclerView) view.findViewById(R.id.recycler_restraunt);
         recycler_restraunt.hasFixedSize();
         recycler_restraunt.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -74,7 +75,10 @@ public class nearMeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Vendor> Newvendors = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Newvendors.add(child.getValue(Vendor.class));
+                    Vendor curr = child.getValue(Vendor.class);
+                    if(city.trim().equals(splitString(curr.getAddress()).trim())) {
+                        Newvendors.add(curr);
+                    }
                 }
                 adapter.addAll(Newvendors);
             }
@@ -116,5 +120,18 @@ public class nearMeFragment extends Fragment {
         Log.d("Load Restraunts",""+adapter.toString());
 
         */
+    }
+
+    private String splitString(String address) {
+        int siz = address.length();
+        int index = siz-1;
+        for(int j=0;j<siz;j++)
+        {
+            if(address.charAt(j)==',')
+            {
+                index = j;
+            }
+        }
+        return address.substring(index+1);
     }
 }
