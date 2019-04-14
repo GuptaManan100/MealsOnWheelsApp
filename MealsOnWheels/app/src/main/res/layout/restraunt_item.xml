@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/restraunt_image"
+            android:id="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
@@ -25,7 +25,7 @@
             android:id="@+id/restraunt_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/restraunt_image"
+            android:layout_alignTop="@+id/item_image"
             android:layout_marginTop="110dp"
             android:gravity="center"
             android:text="Type of Restraunt"
@@ -36,7 +36,7 @@
             android:id="@+id/restraunt_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/restraunt_image"
+            android:layout_alignTop="@+id/item_image"
             android:layout_marginTop="84dp"
             android:gravity="center"
             android:text="Address of Restraunt"
@@ -47,7 +47,7 @@
             android:id="@+id/restraunt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/restraunt_image"
+            android:layout_alignTop="@+id/item_image"
             android:layout_marginTop="28dp"
             android:gravity="center"
             android:text="Name of Restraunt"

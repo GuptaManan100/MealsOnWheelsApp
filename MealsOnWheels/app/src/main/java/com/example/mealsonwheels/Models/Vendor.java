@@ -3,25 +3,19 @@ package com.example.mealsonwheels.Models;
 import java.io.Serializable;
 
 public class Vendor  implements Serializable {
+
     private String Address;
     private String Email;
+    private String avgPrice;
+    private String rating;
+    private String noOfRatings;
     private String Name;
     private String Phone;
-    private int OpeningTime;
-    private int ClosingTime;
+    private String OpeningTime;
+    private String ClosingTime;
     private String Type;
 
     public Vendor() {
-    }
-
-    public Vendor(String address, String email, String name, String phone, int openingTime, int closingTime, String type) {
-        Address = address;
-        Email = email;
-        Name = name;
-        Phone = phone;
-        OpeningTime = openingTime;
-        ClosingTime = closingTime;
-        Type = type;
     }
 
     @Override
@@ -29,12 +23,68 @@ public class Vendor  implements Serializable {
         return "Vendor{" +
                 "Address='" + Address + '\'' +
                 ", Email='" + Email + '\'' +
+                ", avgPrice='" + avgPrice + '\'' +
+                ", rating='" + rating + '\'' +
+                ", noOfRatings='" + noOfRatings + '\'' +
                 ", Name='" + Name + '\'' +
                 ", Phone='" + Phone + '\'' +
-                ", OpeningTime=" + OpeningTime +
-                ", ClosingTime=" + ClosingTime +
+                ", OpeningTime='" + OpeningTime + '\'' +
+                ", ClosingTime='" + ClosingTime + '\'' +
                 ", Type='" + Type + '\'' +
                 '}';
+    }
+
+    public Vendor(String address, String email, String avgPrice, String rating, String noOfRatings, String name, String phone, String openingTime, String closingTime, String type) {
+        Address = address;
+        Email = email;
+        this.avgPrice = avgPrice;
+        this.rating = rating;
+        this.noOfRatings = noOfRatings;
+        Name = name;
+        Phone = phone;
+        OpeningTime = openingTime;
+        ClosingTime = closingTime;
+        Type = type;
+    }
+
+    public String getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice(String avgPrice) {
+        this.avgPrice = avgPrice;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getNoOfRatings() {
+        return noOfRatings;
+    }
+
+    public void setNoOfRatings(String noOfRatings) {
+        this.noOfRatings = noOfRatings;
+    }
+
+    public String getOpeningTime() {
+        return OpeningTime;
+    }
+
+    public void setOpeningTime(String openingTime) {
+        OpeningTime = openingTime;
+    }
+
+    public String getClosingTime() {
+        return ClosingTime;
+    }
+
+    public void setClosingTime(String closingTime) {
+        ClosingTime = closingTime;
     }
 
     public String getAddress() {
@@ -69,21 +119,6 @@ public class Vendor  implements Serializable {
         Phone = phone;
     }
 
-    public int getOpeningTime() {
-        return OpeningTime;
-    }
-
-    public void setOpeningTime(int openingTime) {
-        OpeningTime = openingTime;
-    }
-
-    public int getClosingTime() {
-        return ClosingTime;
-    }
-
-    public void setClosingTime(int closingTime) {
-        ClosingTime = closingTime;
-    }
 
     public String getType() {
         return Type;

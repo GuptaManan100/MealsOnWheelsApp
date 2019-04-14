@@ -84,7 +84,6 @@ public class nearMeFragment extends Fragment {
 
             }
         });
-
         /*FirebaseRecyclerOptions<Vendor> options =
                 new FirebaseRecyclerOptions.Builder<Vendor>()
                         .setQuery(query, Vendor.class)
