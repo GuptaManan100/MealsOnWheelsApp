@@ -59,18 +59,20 @@ public class orderHistoryFragment extends Fragment {
     private void loadOrdersNotDelivred() {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child("Transactions").child("notDelivered");
+                .child("Transactions").child("notDelivered").orderByChild("customer").equalTo(id);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Order> NewOrdres = new ArrayList<>();
+                List<String> NewOrdresIds = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Order curr = child.getValue(Order.class);
                     NewOrdres.add(curr);
+                    NewOrdresIds.add(child.getKey());
                     Log.d("Order History",curr.toString());
                 }
-                adapter.addAll(NewOrdres,0);
+                adapter.addAll(NewOrdres,0,NewOrdresIds);
             }
 
             @Override
@@ -83,18 +85,20 @@ public class orderHistoryFragment extends Fragment {
     private void loadOrdersDelivred() {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child("Transactions").child("delivered");
+                .child("Transactions").child("delivered").orderByChild("customer").equalTo(id);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Order> NewOrdres = new ArrayList<>();
+                List<String> NewOrdresIds = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Order curr = child.getValue(Order.class);
                     NewOrdres.add(curr);
+                    NewOrdresIds.add(child.getKey());
                     Log.d("Order History",curr.toString());
                 }
-                adapter.addAll(NewOrdres,1);
+                adapter.addAll(NewOrdres,1,NewOrdresIds);
             }
 
             @Override
