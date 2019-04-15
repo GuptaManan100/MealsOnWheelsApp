@@ -10,24 +10,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.Spinner;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.example.mealsonwheels.Models.Vendor;
 
 
 public class vendorHomePage extends AppCompatActivity{
 
-    private Vendor vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "Foodies World", "1234567890", "10:00" , "23:00", "Italian");
-    private String vendor_id = "dscsdvcdscdsv";
+//    private Vendor vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "Foodies World", "1234567890", "10:00" , "23:00", "Italian");
+//    private String vendor_id = "dscsdvcdscdsv";
 
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
@@ -105,10 +95,10 @@ public class vendorHomePage extends AppCompatActivity{
 
                         }
 
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("vendorinfo", vendor);
-                        bundle.putString("vendorID", vendor_id);
-                        newFrag.setArguments(bundle);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable("vendorinfo", vendor);
+//                        bundle.putString("vendorID", vendor_id);
+//                        newFrag.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.vendor_frame, newFrag).commit();
 
                         return true;

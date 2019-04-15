@@ -11,10 +11,10 @@ import android.widget.Button;
 
 public class FragmentVendorMenu extends Fragment {
 
-    private Vendor vendor;
-    private String vendor_id;
-    private RecyclerView recycler;
-    private OrderAdapter adapter;
+//    private Vendor vendor;
+//    private String vendor_id;
+//    private RecyclerView recycler;
+//    private OrderAdapter adapter;
 
 
     @Override

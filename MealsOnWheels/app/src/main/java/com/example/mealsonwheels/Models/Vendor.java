@@ -1,10 +1,14 @@
-package com.example.mealsonwheels;
+package com.example.mealsonwheels.Models;
 
 import java.io.Serializable;
 
 public class Vendor implements Serializable {
+
     private String Address;
     private String Email;
+    private String avgPrice;
+    private String rating;
+    private String noOfRatings;
     private String Name;
     private String Phone;
     private String OpeningTime;
@@ -14,9 +18,28 @@ public class Vendor implements Serializable {
     public Vendor() {
     }
 
-    public Vendor(String address, String email, String name, String phone, String openingTime, String closingTime, String type) {
+    @Override
+    public String toString() {
+        return "Vendor{" +
+                "Address='" + Address + '\'' +
+                ", Email='" + Email + '\'' +
+                ", avgPrice='" + avgPrice + '\'' +
+                ", rating='" + rating + '\'' +
+                ", noOfRatings='" + noOfRatings + '\'' +
+                ", Name='" + Name + '\'' +
+                ", Phone='" + Phone + '\'' +
+                ", OpeningTime='" + OpeningTime + '\'' +
+                ", ClosingTime='" + ClosingTime + '\'' +
+                ", Type='" + Type + '\'' +
+                '}';
+    }
+
+    public Vendor(String address, String email, String avgPrice, String rating, String noOfRatings, String name, String phone, String openingTime, String closingTime, String type) {
         Address = address;
         Email = email;
+        this.avgPrice = avgPrice;
+        this.rating = rating;
+        this.noOfRatings = noOfRatings;
         Name = name;
         Phone = phone;
         OpeningTime = openingTime;
@@ -24,17 +47,28 @@ public class Vendor implements Serializable {
         Type = type;
     }
 
-    @Override
-    public String toString() {
-        return "Vendor{" +
-                "Address='" + Address + '\'' +
-                ", Email='" + Email + '\'' +
-                ", Name='" + Name + '\'' +
-                ", Phone='" + Phone + '\'' +
-                ", OpeningTime=" + OpeningTime +
-                ", ClosingTime=" + ClosingTime +
-                ", Type='" + Type + '\'' +
-                '}';
+    public String getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice(String avgPrice) {
+        this.avgPrice = avgPrice;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getNoOfRatings() {
+        return noOfRatings;
+    }
+
+    public void setNoOfRatings(String noOfRatings) {
+        this.noOfRatings = noOfRatings;
     }
 
     public String getAddress() {

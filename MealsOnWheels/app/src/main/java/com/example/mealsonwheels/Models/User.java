@@ -1,6 +1,8 @@
-package com.example.mealsonwheels;
+package com.example.mealsonwheels.Models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String DeliveryAddress;
     private String Email;
     private String Name;

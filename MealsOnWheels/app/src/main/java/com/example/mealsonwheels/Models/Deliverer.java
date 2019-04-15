@@ -1,6 +1,8 @@
-package com.example.mealsonwheels;
+package com.example.mealsonwheels.Models;
 
-public class Deliverer {
+import java.io.Serializable;
+
+public class Deliverer implements Serializable {
     private String Address;
     private String Email;
     private String Name;

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mealsonwheels">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +14,8 @@
         <activity android:name=".VendorEditItem"></activity>
         <activity android:name=".deliveryHomePage" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".restrauntPage"></activity>
+        <activity android:name=".userSignup" />
         <activity
             android:name=".userHomePage"
             android:label="@string/title_activity_user_home_page" />
