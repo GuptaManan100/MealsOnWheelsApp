@@ -14,8 +14,31 @@ public class Order implements Serializable {
     private String transactionId;
     private String vendor;
     private String vendorName;
+    private String delivererName;
 
     public Order() {
+    }
+
+    public Order(String customer, String customerLocation, String date, String deliverer, HashMap<String, CartItem> itemsOrdered, String paymentMode, String totalAmount, String transactionId, String vendor, String vendorName, String delivererName) {
+        this.customer = customer;
+        this.customerLocation = customerLocation;
+        this.date = date;
+        this.deliverer = deliverer;
+        this.itemsOrdered = itemsOrdered;
+        this.paymentMode = paymentMode;
+        this.totalAmount = totalAmount;
+        this.transactionId = transactionId;
+        this.vendor = vendor;
+        this.vendorName = vendorName;
+        this.delivererName = delivererName;
+    }
+
+    public String getDelivererName() {
+        return delivererName;
+    }
+
+    public void setDelivererName(String delivererName) {
+        this.delivererName = delivererName;
     }
 
     @Override
@@ -31,20 +54,8 @@ public class Order implements Serializable {
                 ", transactionId='" + transactionId + '\'' +
                 ", vendor='" + vendor + '\'' +
                 ", vendorName='" + vendorName + '\'' +
+                ", delivererName='" + delivererName + '\'' +
                 '}';
-    }
-
-    public Order(String customer, String customerLocation, String date, String deliverer, HashMap<String, CartItem> itemsOrdered, String paymentMode, String totalAmount, String transactionId, String vendor, String vendorName) {
-        this.customer = customer;
-        this.customerLocation = customerLocation;
-        this.date = date;
-        this.deliverer = deliverer;
-        this.itemsOrdered = itemsOrdered;
-        this.paymentMode = paymentMode;
-        this.totalAmount = totalAmount;
-        this.transactionId = transactionId;
-        this.vendor = vendor;
-        this.vendorName = vendorName;
     }
 
     public String getVendorName() {

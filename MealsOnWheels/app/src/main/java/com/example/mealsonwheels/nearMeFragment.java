@@ -60,6 +60,8 @@ public class nearMeFragment extends Fragment {
         recycler_restraunt.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RestrauntAdapter(getActivity());
         recycler_restraunt.setAdapter(adapter);
+        adapter.setCurrUser(currUser);
+        adapter.setUserID(id);
         loadRestraunts();
     }
 

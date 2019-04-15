@@ -12,7 +12,7 @@ public class CartItem implements Serializable {
 
     @Override
     public String toString() {
-        return "{Price=" + price +", Quantity='" + quantity +'}';
+        return "{Price=" + price +", Quantity=" + quantity +'}';
     }
 
     public CartItem(String price, String quantity) {

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mealsonwheels.Interfaces.ItemClickListener;
+import com.example.mealsonwheels.Models.User;
 import com.example.mealsonwheels.Models.Vendor;
 import com.example.mealsonwheels.R;
 import com.example.mealsonwheels.ViewHolder.RestrauntViewHolder;
@@ -22,6 +23,16 @@ public class RestrauntAdapter extends RecyclerView.Adapter<RestrauntViewHolder> 
 
     List<Vendor> vendorList;
     Context context;
+    User currUser;
+    String userID;
+
+    public void setCurrUser(User currUser) {
+        this.currUser = currUser;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public RestrauntAdapter(Context context) {
         this.vendorList = new ArrayList<>();
@@ -31,7 +42,7 @@ public class RestrauntAdapter extends RecyclerView.Adapter<RestrauntViewHolder> 
     {
         int initsize = vendorList.size();
         vendorList.clear();
-        notifyItemRangeChanged(initsize,-1*initsize);
+        notifyItemRangeChanged(0,initsize);
     }
     public void addAll(List<Vendor> newVend)
     {
@@ -67,6 +78,8 @@ public class RestrauntAdapter extends RecyclerView.Adapter<RestrauntViewHolder> 
                 //Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                 Intent mainIntent = new Intent(context, restrauntPage.class);
                 mainIntent.putExtra("vendorInfo",curr);
+                mainIntent.putExtra("userInfo",currUser);
+                mainIntent.putExtra("userId",userID);
                 context.startActivity(mainIntent);
             }
         });
