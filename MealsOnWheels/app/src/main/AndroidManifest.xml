@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".VendorEditItem"></activity>
-        <activity android:name=".VendorMenu" />
         <activity android:name=".deliveryHomePage" />
         <activity android:name=".MainActivity" />
         <activity

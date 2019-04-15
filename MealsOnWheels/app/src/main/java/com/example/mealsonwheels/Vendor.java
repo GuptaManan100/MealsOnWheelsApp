@@ -1,18 +1,20 @@
 package com.example.mealsonwheels;
 
-public class Vendor {
+import java.io.Serializable;
+
+public class Vendor implements Serializable {
     private String Address;
     private String Email;
     private String Name;
     private String Phone;
-    private int OpeningTime;
-    private int ClosingTime;
+    private String OpeningTime;
+    private String ClosingTime;
     private String Type;
 
     public Vendor() {
     }
 
-    public Vendor(String address, String email, String name, String phone, int openingTime, int closingTime, String type) {
+    public Vendor(String address, String email, String name, String phone, String openingTime, String closingTime, String type) {
         Address = address;
         Email = email;
         Name = name;
@@ -67,19 +69,19 @@ public class Vendor {
         Phone = phone;
     }
 
-    public int getOpeningTime() {
+    public String getOpeningTime() {
         return OpeningTime;
     }
 
-    public void setOpeningTime(int openingTime) {
+    public void setOpeningTime(String openingTime) {
         OpeningTime = openingTime;
     }
 
-    public int getClosingTime() {
+    public String getClosingTime() {
         return ClosingTime;
     }
 
-    public void setClosingTime(int closingTime) {
+    public void setClosingTime(String closingTime) {
         ClosingTime = closingTime;
     }
 

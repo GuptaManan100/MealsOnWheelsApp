@@ -12,14 +12,50 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Spinner;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class vendorHomePage extends AppCompatActivity {
+public class vendorHomePage extends AppCompatActivity{
+
+    private Vendor vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "Foodies World", "1234567890", "10:00" , "23:00", "Italian");
+    private String vendor_id = "dscsdvcdscdsv";
 
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
 
+    // Interface for edit item fragment ---------------------------------------------------------------------------------------
+
+//    @Override
+//    public void add_menu_item(String name, String mark, String price, String category, String isSpicy, String ingredients)
+//    {
+//
+//        EditText mEdit;
+//
+//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference usersRef = mDatabase.child("Menus").child("dscsdvcdscdsv").child(category).child(name);
+//        Map<String, String> userData = new HashMap<String, String>();
+//
+//        //usersRef.setValue(item_name);
+//
+//        userData.put("ingredients", ingredients);
+//        userData.put("isSpicy", isSpicy);
+//        userData.put("price", price);
+//        userData.put("mark", mark);
+//
+//        usersRef.setValue(userData);
+//
+//    }
+
+    //------------------------------------------------------------------------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,30 +84,32 @@ public class vendorHomePage extends AppCompatActivity {
 
                         drawerLayout.closeDrawers();
 
+                        Fragment newFrag = null;
                         switch(menuItem.getItemId())
                         {
                             case R.id.drawer_store_details:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.vendor_frame, new FragmentVendorStoreDetails()).commit();
+                                newFrag = new FragmentVendorStoreDetails();
                                 break;
 
                             case R.id.drawer_menu:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.vendor_frame, new FragmentVendorMenu()).commit();
+                                newFrag = new FragmentVendorMenu();
                                 break;
 
                             case R.id.drawer_current_orders:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.vendor_frame, new FragmentVendorCurrentOrders()).commit();
+                                newFrag = new FragmentVendorCurrentOrders();
                                 break;
 
                             case R.id.drawer_past_orders:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.vendor_frame, new FragmentVendorPastOrders()).commit();
+                                newFrag = new FragmentVendorPastOrders();
                                 break;
 
                         }
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
-
-                        //
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("vendorinfo", vendor);
+                        bundle.putString("vendorID", vendor_id);
+                        newFrag.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.vendor_frame, newFrag).commit();
 
                         return true;
                     }
