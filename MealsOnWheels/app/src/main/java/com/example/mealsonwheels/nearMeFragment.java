@@ -33,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.sort;
+
 public class nearMeFragment extends Fragment {
 
     private TextView textV;
@@ -56,6 +58,7 @@ public class nearMeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Toast.makeText(getContext(), getActivity().toString(), Toast.LENGTH_SHORT).show();
         textV = (TextView) view.findViewById(R.id.textView);
         textV.setText(currUser.getDeliveryAddress());
         city = splitString(currUser.getDeliveryAddress());
@@ -80,8 +83,38 @@ public class nearMeFragment extends Fragment {
                 {
                     if(parent.getItemAtPosition(position).toString().equals("Rating"))
                     {
-                        Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_RATING);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                    else if(parent.getItemAtPosition(position).toString().equals("Rating Desc"))
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_RATING_DESC);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                    else if(parent.getItemAtPosition(position).toString().equals("Name"))
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_NAME);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                    else if(parent.getItemAtPosition(position).toString().equals("Avg Price"))
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_AvgPrice);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                    else
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_AvgPrice_Desc);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
                     }
                 }
             }
@@ -165,5 +198,5 @@ public class nearMeFragment extends Fragment {
         }
         return address.substring(index+1);
     }
-    
+
 }
