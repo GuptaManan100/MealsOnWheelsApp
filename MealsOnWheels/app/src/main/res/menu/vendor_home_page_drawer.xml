@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/drawer_menu" android:icon="@drawable/ic_menu" android:title="Menu" />
+        <item android:id="@+id/drawer_current_orders" android:title="Current Orders" android:icon="@drawable/ic_current_orders"/>
+        <item android:id="@+id/drawer_past_orders" android:title="Past Orders" android:icon="@drawable/ic_past_orders"/>
+        <item android:id="@+id/drawer_store_details" android:title="Store Details" android:icon="@drawable/ic_store_details"/>
+        <item android:id="@+id/drawer_reviews" android:title="Reviews" android:icon="@drawable/ic_reviews"/>
+
+    </group>
+</menu>

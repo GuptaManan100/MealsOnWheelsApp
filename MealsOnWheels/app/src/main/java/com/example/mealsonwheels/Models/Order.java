@@ -52,6 +52,19 @@ public class Order implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+    public Order(String customer, String customerLocation, String date, String deliverer, HashMap<String, CartItem> itemsOrdered, String paymentMode, String totalAmount, String transactionId, String vendor, String vendorName, String delivererName) {
+        this.customer = customer;
+        this.customerLocation = customerLocation;
+        this.date = date;
+        this.deliverer = deliverer;
+        this.itemsOrdered = itemsOrdered;
+        this.paymentMode = paymentMode;
+        this.totalAmount = totalAmount;
+        this.transactionId = transactionId;
+        this.vendor = vendor;
+        this.vendorName = vendorName;
+        this.delivererName = delivererName;
+    }
 
     public String getDelivererName() {
         return delivererName;
@@ -78,6 +91,19 @@ public class Order implements Serializable {
                 ", delivererLocation='" + delivererLocation + '\'' +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public Order(String customer, String customerLocation, String date, String deliverer, HashMap<String, CartItem> itemsOrdered, String paymentMode, String totalAmount, String transactionId, String vendor, String vendorName) {
+        this.customer = customer;
+        this.customerLocation = customerLocation;
+        this.date = date;
+        this.deliverer = deliverer;
+        this.itemsOrdered = itemsOrdered;
+        this.paymentMode = paymentMode;
+        this.totalAmount = totalAmount;
+        this.transactionId = transactionId;
+        this.vendor = vendor;
+        this.vendorName = vendorName;
     }
 
     public String getVendorName() {

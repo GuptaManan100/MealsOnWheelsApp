@@ -3,7 +3,7 @@ package com.example.mealsonwheels.Models;
 import java.io.Serializable;
 import java.util.Comparator;
 
-public class Vendor  implements Serializable {
+public class Vendor implements Serializable {
 
     private String Address;
     private String Email;
@@ -78,22 +78,6 @@ public class Vendor  implements Serializable {
         this.noOfRatings = noOfRatings;
     }
 
-    public String getOpeningTime() {
-        return OpeningTime;
-    }
-
-    public void setOpeningTime(String openingTime) {
-        OpeningTime = openingTime;
-    }
-
-    public String getClosingTime() {
-        return ClosingTime;
-    }
-
-    public void setClosingTime(String closingTime) {
-        ClosingTime = closingTime;
-    }
-
     public String getAddress() {
         return Address;
     }
@@ -126,6 +110,21 @@ public class Vendor  implements Serializable {
         Phone = phone;
     }
 
+    public String getOpeningTime() {
+        return OpeningTime;
+    }
+
+    public void setOpeningTime(String openingTime) {
+        OpeningTime = openingTime;
+    }
+
+    public String getClosingTime() {
+        return ClosingTime;
+    }
+
+    public void setClosingTime(String closingTime) {
+        ClosingTime = closingTime;
+    }
 
     public String getType() {
         return Type;
