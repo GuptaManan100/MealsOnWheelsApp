@@ -15,10 +15,13 @@ import android.widget.TextView;
 import com.example.mealsonwheels.Adapter.OrderAdapter;
 import com.example.mealsonwheels.Adapter.RestrauntAdapter;
 import com.example.mealsonwheels.Adapter.VendorCurrentOrderAdapter;
+import com.example.mealsonwheels.Adapter.VendorReviewAdapter;
 import com.example.mealsonwheels.Models.CartItem;
 import com.example.mealsonwheels.Models.Order;
+import com.example.mealsonwheels.Models.Review;
 import com.example.mealsonwheels.Models.User;
 import com.example.mealsonwheels.Models.Vendor;
+import com.example.mealsonwheels.ViewHolder.VendorReviewViewHolder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,14 +36,14 @@ public class FragmentVendorReviews extends Fragment {
     private Vendor vendor;
     private String vendor_id;
     private RecyclerView recycler_reviews;
-    //private VendorCurrentOrderAdapter adapter;
+    private VendorReviewAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
-        vendor_id = bundle.getString("vendorID");
-        //vendor_id = "dscsdvcdscdsv";
+        //vendor_id = bundle.getString("vendorID");
+        vendor_id = "hardikatyal2";
         vendor = (Vendor) bundle.getSerializable("vendorinfo");
         return inflater.inflate(R.layout.layout_vendor_reviews,container,false);
     }
@@ -51,36 +54,35 @@ public class FragmentVendorReviews extends Fragment {
         recycler_reviews = (RecyclerView) view.findViewById(R.id.recycler_reviews);
         recycler_reviews.hasFixedSize();
         recycler_reviews.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //adapter = new VendorCurrentOrderAdapter(getActivity());
-        //recycler_current_orders.setAdapter(adapter);
+        adapter = new VendorReviewAdapter(getActivity());
+        recycler_reviews.setAdapter(adapter);
 
-        //loadOrdersNotDelivred();
+        loadReviews();
     }
 
-//    private void loadOrdersNotDelivred() {
-//        Query query = FirebaseDatabase.getInstance()
-//                .getReference()
-//                .child("Transactions").child("notDelivered").orderByChild("vendor").equalTo(vendor_id);
-//
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                List<Order> NewOrdres = new ArrayList<>();
-//                List<String> NewOrdresIds = new ArrayList<>();
-//                for (DataSnapshot child : dataSnapshot.getChildren()) {
-//                    //Order curr = child.getValue(Order.class);
-//                    Order curr = new Order();
-//                    NewOrdres.add(curr);
-//                    NewOrdresIds.add(child.getKey());
-//                    Log.d("Order History",curr.toString());
-//                }
-//                adapter.addAll(NewOrdres, NewOrdresIds);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
+    private void loadReviews() {
+        Query query = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("Reviews").orderByChild("vendor").equalTo(vendor_id);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> NewReviews = new ArrayList<>();
+                List<String> NewRatings = new ArrayList<>();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Review curr = child.getValue(Review.class);
+                    NewReviews.add(curr.getReview());
+                    NewRatings.add(curr.getRating());
+                    Log.d("Order History",curr.toString());
+                }
+                adapter.addAll(NewRatings, NewReviews);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

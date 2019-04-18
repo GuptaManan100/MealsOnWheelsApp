@@ -155,22 +155,22 @@ public class VendorEditItem extends AppCompatActivity {
 
                 usersRef.setValue(userData);
 
-                mEdit = (EditText)findViewById(R.id.add_item_name);
+                mEdit = (EditText)findViewById(R.id.item_name);
                 mEdit.setText("");
 
-                mEdit = (EditText)findViewById(R.id.add_item_price);
+                mEdit = (EditText)findViewById(R.id.item_price);
                 mEdit.setText("");
 
-                mEdit = (EditText)findViewById(R.id.add_item_ingredients);
+                mEdit = (EditText)findViewById(R.id.item_ingredients);
                 mEdit.setText("");
 
-                mSpin = (Spinner)findViewById(R.id.add_mark_list);
+                mSpin = (Spinner)findViewById(R.id.mark_list);
                 mSpin.setSelection(0);
 
-                mSpin = (Spinner)findViewById(R.id.add_category_list);
+                mSpin = (Spinner)findViewById(R.id.category_list);
                 mSpin.setSelection(0);
 
-                spicy = (CheckBox)findViewById(R.id.add_checkbox_spicy);
+                spicy = (CheckBox)findViewById(R.id.checkbox_spicy);
                 spicy.setChecked(false);
 
             }
