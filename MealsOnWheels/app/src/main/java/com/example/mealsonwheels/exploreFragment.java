@@ -50,6 +50,8 @@ public class exploreFragment extends Fragment {
         recycler_restraunt.hasFixedSize();
         recycler_restraunt.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RestrauntAdapter(getActivity());
+        adapter.setCurrUser(currUser);
+        adapter.setUserID(id);
         recycler_restraunt.setAdapter(adapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

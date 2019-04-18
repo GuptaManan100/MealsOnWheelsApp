@@ -1,6 +1,7 @@
 package com.example.mealsonwheels.Models;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class Vendor implements Serializable {
 
@@ -14,6 +15,12 @@ public class Vendor implements Serializable {
     private String OpeningTime;
     private String ClosingTime;
     private String Type;
+    public static final Comparator<Vendor> BY_RATING = new ByRating();
+    public static final Comparator<Vendor> BY_RATING_DESC = new ByRatingDesc();
+    public static final Comparator<Vendor> BY_NAME = new ByName();
+    public static final Comparator<Vendor> BY_AvgPrice = new ByAvgPrice();
+    public static final Comparator<Vendor> BY_AvgPrice_Desc = new ByAvgPriceDesc();
+
 
     public Vendor() {
     }
@@ -125,5 +132,40 @@ public class Vendor implements Serializable {
 
     public void setType(String type) {
         Type = type;
+    }
+
+    private static class ByRating implements Comparator<Vendor> {
+        public int compare(Vendor v, Vendor w){
+            // v.name is a String, and a String object is Comparable
+            return v.rating.compareTo(w.rating);
+        }
+    }
+
+    private static class ByRatingDesc implements Comparator<Vendor> {
+        public int compare(Vendor v, Vendor w){
+            // v.name is a String, and a String object is Comparable
+            return w.rating.compareTo(v.rating);
+        }
+    }
+
+    private static class ByName implements Comparator<Vendor> {
+        public int compare(Vendor v, Vendor w){
+            // v.name is a String, and a String object is Comparable
+            return v.Name.compareTo(w.Name);
+        }
+    }
+
+    private static class ByAvgPrice implements Comparator<Vendor> {
+        public int compare(Vendor v, Vendor w){
+            // v.name is a String, and a String object is Comparable
+            return v.avgPrice.compareTo(w.avgPrice);
+        }
+    }
+
+    private static class ByAvgPriceDesc implements Comparator<Vendor> {
+        public int compare(Vendor v, Vendor w){
+            // v.name is a String, and a String object is Comparable
+            return w.avgPrice.compareTo(v.avgPrice);
+        }
     }
 }

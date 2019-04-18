@@ -57,19 +57,22 @@ public class FragmentVendorMenu extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent myIntent = new Intent(getActivity(), VendorEditItem.class);
+//                Intent myIntent = new Intent(getActivity(), VendorEditItem.class);
+//
+//                Bundle bundle = new Bundle();
+//
+//                bundle.putString("name", "");
+//                bundle.putString("mark", "Veg");
+//                bundle.putString("price", "0");
+//                bundle.putString("category", "Beverages");
+//                bundle.putString("isSpicy", "No");
+//                bundle.putString("ingredients", "");
+//
+//                myIntent.putExtras(bundle);
+//
+//                getActivity().startActivity(myIntent);
 
-                Bundle bundle = new Bundle();
-
-                bundle.putString("name", "");
-                bundle.putString("mark", "Veg");
-                bundle.putString("price", "0");
-                bundle.putString("category", "Beverages");
-                bundle.putString("isSpicy", "No");
-                bundle.putString("ingredients", "");
-
-                myIntent.putExtras(bundle);
-
+                Intent myIntent = new Intent(getActivity(), VendorAddItem.class);
                 getActivity().startActivity(myIntent);
             }
         });

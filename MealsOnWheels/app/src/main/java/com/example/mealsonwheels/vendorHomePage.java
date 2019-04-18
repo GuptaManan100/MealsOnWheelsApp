@@ -104,6 +104,10 @@ public class vendorHomePage extends AppCompatActivity{
                                 newFrag = new FragmentVendorPastOrders();
                                 break;
 
+                            case R.id.drawer_reviews:
+                                newFrag = new FragmentVendorReviews();
+                                break;
+
                         }
 
                         Bundle bundle = new Bundle();

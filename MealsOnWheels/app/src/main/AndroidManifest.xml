@@ -3,6 +3,11 @@
     package="com.example.mealsonwheels">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -11,18 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VendorEditItem"></activity>
-        <activity android:name=".deliveryHomePage" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".paymentOrder"></activity>
         <activity android:name=".restrauntPage"></activity>
+        <activity android:name=".VendorAddItem"></activity>
+        <activity android:name=".VendorEditItem"></activity>
         <activity android:name=".userSignup" />
+        <activity android:name=".deliveryHomePage" />
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".userHomePage"
             android:label="@string/title_activity_user_home_page" />
         <activity android:name=".vendorHomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

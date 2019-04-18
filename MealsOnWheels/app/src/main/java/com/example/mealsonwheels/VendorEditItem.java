@@ -62,6 +62,7 @@ public class VendorEditItem extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.category_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
+        spinner1.setEnabled(false);
 
         if(qitem_mark.equals("Veg"))
         {

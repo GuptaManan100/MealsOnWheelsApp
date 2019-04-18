@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.mealsonwheels.Adapter.OrderAdapter;
 import com.example.mealsonwheels.Adapter.RestrauntAdapter;
+import com.example.mealsonwheels.Adapter.VendorCurrentOrderAdapter;
 import com.example.mealsonwheels.Models.CartItem;
 import com.example.mealsonwheels.Models.Order;
 import com.example.mealsonwheels.Models.User;
@@ -32,7 +33,7 @@ public class FragmentVendorCurrentOrders extends Fragment {
     private Vendor vendor;
     private String vendor_id;
     private RecyclerView recycler_current_orders;
-    private OrderAdapter adapter;
+    private VendorCurrentOrderAdapter adapter;
 
     @Nullable
     @Override
@@ -50,7 +51,7 @@ public class FragmentVendorCurrentOrders extends Fragment {
         recycler_current_orders = (RecyclerView) view.findViewById(R.id.recycler_current_orders);
         recycler_current_orders.hasFixedSize();
         recycler_current_orders.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new OrderAdapter(getActivity());
+        adapter = new VendorCurrentOrderAdapter(getActivity());
         recycler_current_orders.setAdapter(adapter);
 
         loadOrdersNotDelivred();
@@ -67,12 +68,13 @@ public class FragmentVendorCurrentOrders extends Fragment {
                 List<Order> NewOrdres = new ArrayList<>();
                 List<String> NewOrdresIds = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Order curr = child.getValue(Order.class);
+                    //Order curr = child.getValue(Order.class);
+                    Order curr = new Order();
                     NewOrdres.add(curr);
                     NewOrdresIds.add(child.getKey());
                     Log.d("Order History",curr.toString());
                 }
-                adapter.addAll(NewOrdres,0,NewOrdresIds);
+                adapter.addAll(NewOrdres, NewOrdresIds);
             }
 
             @Override

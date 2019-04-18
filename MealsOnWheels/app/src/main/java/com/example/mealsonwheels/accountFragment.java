@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mealsonwheels.Models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -170,9 +171,10 @@ public class accountFragment extends Fragment {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
         if (acct != null) {
-            Toast.makeText(getActivity(), acct.getPhotoUrl().toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), acct.getPhotoUrl().toString(), Toast.LENGTH_SHORT).show();
             //profileImage.setImageURI(acct.getPhotoUrl());
             //setProfilePic.
+            Glide.with(this).load(acct.getPhotoUrl()).into(profileImage);
         }
 
         type = 1;//EditText

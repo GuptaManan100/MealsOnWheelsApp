@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,15 +33,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.sort;
+
 public class nearMeFragment extends Fragment {
 
     private TextView textV;
     private User currUser;
     private String id;
     private String city;
-
+    private List<Vendor> Newvendors;
     private RecyclerView recycler_restraunt;
     private RestrauntAdapter adapter;
+    private int loaded;
 
     @Nullable
     @Override
@@ -52,6 +58,7 @@ public class nearMeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Toast.makeText(getContext(), getActivity().toString(), Toast.LENGTH_SHORT).show();
         textV = (TextView) view.findViewById(R.id.textView);
         textV.setText(currUser.getDeliveryAddress());
         city = splitString(currUser.getDeliveryAddress());
@@ -60,7 +67,63 @@ public class nearMeFragment extends Fragment {
         recycler_restraunt.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RestrauntAdapter(getActivity());
         recycler_restraunt.setAdapter(adapter);
+        adapter.setCurrUser(currUser);
+        adapter.setUserID(id);
+        loaded = 0;
         loadRestraunts();
+
+        final Spinner spinner = (Spinner) view.findViewById(R.id.SortSpinner);
+        ArrayAdapter<CharSequence> spinadapter = ArrayAdapter.createFromResource(getContext(),R.array.sort_array, android.R.layout.simple_spinner_item);
+        spinadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinadapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(loaded==1)
+                {
+                    if(parent.getItemAtPosition(position).toString().equals("Rating"))
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_RATING);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                    else if(parent.getItemAtPosition(position).toString().equals("Rating Desc"))
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_RATING_DESC);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                    else if(parent.getItemAtPosition(position).toString().equals("Name"))
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_NAME);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                    else if(parent.getItemAtPosition(position).toString().equals("Avg Price"))
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_AvgPrice);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                    else
+                    {
+                        //Toast.makeText(getActivity(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                        sort(Newvendors,Vendor.BY_AvgPrice_Desc);
+                        adapter.clearAll();
+                        adapter.addAll(Newvendors);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //do nothing
+            }
+        });
     }
 
     private void loadRestraunts() {
@@ -73,13 +136,14 @@ public class nearMeFragment extends Fragment {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Vendor> Newvendors = new ArrayList<>();
+                Newvendors = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Vendor curr = child.getValue(Vendor.class);
                     if(city.trim().equals(splitString(curr.getAddress()).trim())) {
                         Newvendors.add(curr);
                     }
                 }
+                loaded = 1;
                 adapter.addAll(Newvendors);
             }
 
@@ -134,4 +198,5 @@ public class nearMeFragment extends Fragment {
         }
         return address.substring(index+1);
     }
+
 }

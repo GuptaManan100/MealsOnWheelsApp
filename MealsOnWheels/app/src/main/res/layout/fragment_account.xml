@@ -159,7 +159,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_account_circle_black_24dp"
+        android:src="@drawable/ptofile"
         app:layout_constraintBottom_toBottomOf="@+id/EmailEditText"
         app:layout_constraintEnd_toEndOf="@+id/phone_text_input_layout"
         app:layout_constraintStart_toEndOf="@+id/NameEditText"

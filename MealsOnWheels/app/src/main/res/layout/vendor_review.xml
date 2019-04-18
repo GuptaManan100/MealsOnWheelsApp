@@ -11,28 +11,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:isIndicator="true"
         android:numStars="5"
         android:stepSize="1"
-        android:isIndicator="true"
         app:layout_constraintEnd_toEndOf="@+id/ReviewTextView"
         app:layout_constraintStart_toStartOf="@+id/ReviewTextView"
         app:layout_constraintTop_toBottomOf="@+id/ReviewTextView" />
 
-    <TextView
-        android:id="@+id/ReviewTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="cursive"
-        android:text="Review"
-        android:textColor="@color/Basecolor"
-        android:textSize="30sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+        <!--android:id="@+id/ReviewTextView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:fontFamily="cursive"-->
+        <!--android:text="Review"-->
+        <!--android:textColor="@color/Basecolor"-->
+        <!--android:textSize="30sp"-->
+        <!--android:textStyle="bold|italic"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
         android:id="@+id/reviewEditText"
