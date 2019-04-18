@@ -87,40 +87,6 @@ public class VendorPastOrderAdapter extends RecyclerView.Adapter<VendorPastOrder
             holder.order_date.setTextColor(Color.BLACK);
             holder.order_price.setTextColor(Color.BLACK);
             holder.orderList.setTextColor(Color.BLACK);
-            holder.setItemClickListener(new ItemClickListener() {
-                @Override
-                public void onClick(View view, int position, boolean isLongClick) {
-                    final Query query = FirebaseDatabase.getInstance()
-                            .getReference()
-                            .child("Reviews").child(currId);
-
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot child) {
-
-                                final Review rev = child.getValue(Review.class);
-                                final Dialog dialog = new Dialog(context);
-                                dialog.setContentView(R.layout.vendor_review);
-                                final EditText reviewText = (EditText) dialog.findViewById(R.id.reviewEditText);
-                                final RatingBar ratingBar = (RatingBar) dialog.findViewById(R.id.ratingBar);
-                                reviewText.setText(rev.getReview());
-                                ratingBar.setRating(Float.parseFloat(rev.getRating()));
-                                dialog.setTitle("Review");
-
-                                dialog.show();
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-                    //Toast.makeText(context, "Review", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 

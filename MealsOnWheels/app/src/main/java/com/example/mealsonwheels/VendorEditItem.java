@@ -148,7 +148,7 @@ public class VendorEditItem extends AppCompatActivity {
 
 
 
-                DatabaseReference usersRef = mDatabase.child("Menus").child("dscsdvcdscdsv").child(item_category).child(item_name);
+                DatabaseReference usersRef = mDatabase.child("Menus").child(vendor_id).child(item_category).child(item_name);
                 Map<String, String> userData = new HashMap<String, String>();
 
                 //usersRef.setValue(item_name);

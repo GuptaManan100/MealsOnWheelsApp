@@ -18,7 +18,7 @@ import com.example.mealsonwheels.Models.Vendor;
 public class vendorHomePage extends AppCompatActivity{
 
     private Vendor vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "540", "1", "1", "Foodies World", "1234567890", "10:00", "23:00", "Italian");
-    private String vendor_id = "dxasdssd";
+    private String vendor_id = "dscsdvcdscdsv";
 
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;

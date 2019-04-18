@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.mealsonwheels.Models.Vendor;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,11 +20,25 @@ import java.util.Map;
 public class VendorAddItem extends AppCompatActivity {
 
     EditText mEdit;
+    Vendor vendor;
+    String vendor_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_add_item);
+
+        Bundle bundle = getIntent().getExtras();
+        String qitem_name = bundle.getString("name");
+        String qitem_mark = bundle.getString("mark");
+        String qitem_price = bundle.getString("price");
+        String qitem_category = bundle.getString("category");
+        String qitem_spicy = bundle.getString("isSpicy");
+        String qitem_ingredients = bundle.getString("ingredients");
+
+        vendor = (Vendor) getIntent().getSerializableExtra("vendorInfo");
+        vendor_id = getIntent().getStringExtra("vendorID");
+
 
         Spinner spinner = (Spinner) findViewById(R.id.add_mark_list);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.mark_array, android.R.layout.simple_spinner_item);
@@ -94,7 +109,7 @@ public class VendorAddItem extends AppCompatActivity {
 
 
 
-                DatabaseReference usersRef = mDatabase.child("Menus").child("dscsdvcdscdsv").child(item_category).child(item_name);
+                DatabaseReference usersRef = mDatabase.child("Menus").child(vendor_id).child(item_category).child(item_name);
                 Map<String, String> userData = new HashMap<String, String>();
 
                 //usersRef.setValue(item_name);
