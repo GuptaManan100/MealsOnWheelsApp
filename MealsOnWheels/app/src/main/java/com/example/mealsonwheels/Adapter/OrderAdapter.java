@@ -152,7 +152,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                                 final RatingBar ratingBar = (RatingBar) dialog.findViewById(R.id.ratingBar);
                                 Button submitButton = (Button) dialog.findViewById(R.id.SubmitButton);
                                 dialog.setTitle("Review");
-
                                 submitButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -198,7 +197,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                 }
             });
         }
-        else
+        else if(type_order.get(i)==0)
         {
             holder.back_image.setImageResource(R.color.BaseNotOrdered);
             holder.mode_payment.setTextColor(Color.WHITE);
@@ -210,6 +209,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                 @Override
                 public void onClick(View view, int position, boolean isLongClick) {
                     Toast.makeText(context, "Tracking", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else
+        {
+            holder.back_image.setImageResource(R.color.BaseNotOrdered);
+            holder.mode_payment.setTextColor(Color.WHITE);
+            holder.mode_payment.setText("");
+            holder.vendor_name.setTextColor(Color.WHITE);
+            holder.order_date.setTextColor(Color.WHITE);
+            holder.order_price.setTextColor(Color.WHITE);
+            holder.orderList.setTextColor(Color.WHITE);
+            holder.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                    Log.d("orderCheckout","Order was clicked");
                 }
             });
         }

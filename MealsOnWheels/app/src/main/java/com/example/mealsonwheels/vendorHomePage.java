@@ -16,8 +16,8 @@ import com.example.mealsonwheels.Models.Vendor;
 
 public class vendorHomePage extends AppCompatActivity{
 
-//    private Vendor vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "Foodies World", "1234567890", "10:00" , "23:00", "Italian");
-//    private String vendor_id = "dscsdvcdscdsv";
+    private Vendor vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "540", "1", "1", "Foodies World", "1234567890", "10:00", "23:00", "Italian");
+    private String vendor_id = "dscsdvcdscdsv";
 
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
@@ -52,6 +52,18 @@ public class vendorHomePage extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_home_page);
 
+        final DrawerLayout drawerLayout = findViewById(R.id.vendor_drawer);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("vendorinfo", vendor);
+        bundle.putString("vendorID", vendor_id);
+        Fragment newFrag = new FragmentVendorMenu();
+        newFrag.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.vendor_frame, newFrag).commit();
+
+        NavigationView navView = (NavigationView) findViewById(R.id.vendor_navigation_view);
+        navView.getMenu().getItem(0).setChecked(true);
+
         mDrawerlayout = (DrawerLayout) findViewById(R.id.vendor_drawer);
         mToggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
@@ -62,7 +74,6 @@ public class vendorHomePage extends AppCompatActivity{
         }
 
         NavigationView btn = (NavigationView) findViewById(R.id.vendor_navigation_view);
-        final DrawerLayout drawerLayout = findViewById(R.id.vendor_drawer);
 
         btn.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -95,10 +106,10 @@ public class vendorHomePage extends AppCompatActivity{
 
                         }
 
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("vendorinfo", vendor);
-//                        bundle.putString("vendorID", vendor_id);
-//                        newFrag.setArguments(bundle);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("vendorinfo", vendor);
+                        bundle.putString("vendorID", vendor_id);
+                        newFrag.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.vendor_frame, newFrag).commit();
 
                         return true;
@@ -112,5 +123,10 @@ public class vendorHomePage extends AppCompatActivity{
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void ex_class()
+    {
+
     }
 }

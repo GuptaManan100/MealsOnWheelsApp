@@ -8,8 +8,6 @@ import android.widget.TextView;
 import com.example.mealsonwheels.Interfaces.ItemClickListener;
 import com.example.mealsonwheels.R;
 
-import org.w3c.dom.Text;
-
 public class RestrauntViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView res_name;
@@ -24,7 +22,7 @@ public class RestrauntViewHolder extends RecyclerView.ViewHolder implements View
     public RestrauntViewHolder(View itemView)
     {
         super(itemView);
-        res_name = (TextView) itemView.findViewById(R.id.restraunt_name);
+        res_name = (TextView) itemView.findViewById(R.id.transaction_id);
         res_image = (ImageView) itemView.findViewById(R.id.item_image);
         res_address = (TextView) itemView.findViewById(R.id.restraunt_address);
         res_type = (TextView) itemView.findViewById(R.id.restraunt_type);

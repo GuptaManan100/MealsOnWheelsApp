@@ -69,7 +69,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/restraunt_name"
+            android:id="@+id/transaction_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/item_image"
