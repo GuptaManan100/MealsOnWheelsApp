@@ -15,11 +15,13 @@ public class Order implements Serializable {
     private String vendor;
     private String vendorName;
     private String delivererName;
+    private String delivererLocation;
+    private String status;
 
     public Order() {
     }
 
-    public Order(String customer, String customerLocation, String date, String deliverer, HashMap<String, CartItem> itemsOrdered, String paymentMode, String totalAmount, String transactionId, String vendor, String vendorName, String delivererName) {
+    public Order(String customer, String customerLocation, String date, String deliverer, HashMap<String, CartItem> itemsOrdered, String paymentMode, String totalAmount, String transactionId, String vendor, String vendorName, String delivererName, String delivererLocation, String status) {
         this.customer = customer;
         this.customerLocation = customerLocation;
         this.date = date;
@@ -31,6 +33,24 @@ public class Order implements Serializable {
         this.vendor = vendor;
         this.vendorName = vendorName;
         this.delivererName = delivererName;
+        this.delivererLocation = delivererLocation;
+        this.status = status;
+    }
+
+    public String getDelivererLocation() {
+        return delivererLocation;
+    }
+
+    public void setDelivererLocation(String delivererLocation) {
+        this.delivererLocation = delivererLocation;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDelivererName() {
@@ -55,6 +75,8 @@ public class Order implements Serializable {
                 ", vendor='" + vendor + '\'' +
                 ", vendorName='" + vendorName + '\'' +
                 ", delivererName='" + delivererName + '\'' +
+                ", delivererLocation='" + delivererLocation + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 

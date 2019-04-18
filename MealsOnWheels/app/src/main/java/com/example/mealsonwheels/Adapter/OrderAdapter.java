@@ -22,6 +22,7 @@ import com.example.mealsonwheels.MainActivity;
 import com.example.mealsonwheels.Models.Order;
 import com.example.mealsonwheels.Models.Review;
 import com.example.mealsonwheels.Models.Vendor;
+import com.example.mealsonwheels.PublicClasses.FlatEarthDist;
 import com.example.mealsonwheels.R;
 import com.example.mealsonwheels.ViewHolder.OrderViewHolder;
 import com.example.mealsonwheels.ViewHolder.RestrauntViewHolder;
@@ -36,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
 
@@ -208,7 +210,28 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
             holder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int position, boolean isLongClick) {
-                    Toast.makeText(context, "Tracking", Toast.LENGTH_SHORT).show();
+                    try {
+                        String custLoc = curr.getCustomerLocation();
+                        String delivererLoc = curr.getDelivererLocation();
+                        Scanner scan = new Scanner(custLoc);
+                        scan.useDelimiter(",");
+                        double custLat = scan.nextDouble();
+                        double custLong = scan.nextDouble();
+
+                        scan = new Scanner(delivererLoc);
+                        scan.useDelimiter(",");
+                        double deliverat = scan.nextDouble();
+                        double delivererLong = scan.nextDouble();
+
+                        double ans = FlatEarthDist.distance(custLat, custLong, deliverat, delivererLong);
+                        Toast.makeText(context, "Deliverer " + Math.round(ans) + " meters away", Toast.LENGTH_LONG).show();
+
+                    }
+                    catch(Exception e)
+                    {
+                        //Log.e("tracking",e.getMessage());
+                        Toast.makeText(context, "Order Status = " + curr.getStatus(), Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
