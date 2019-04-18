@@ -17,18 +17,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".paymentOrder"></activity>
-        <activity android:name=".restrauntPage"></activity>
+        <activity android:name=".restrauntPage" />
         <activity android:name=".VendorAddItem"></activity>
         <activity android:name=".VendorEditItem"></activity>
         <activity android:name=".userSignup" />
         <activity android:name=".deliveryHomePage" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".vendorHomePage" />
         <activity
             android:name=".userHomePage"
             android:label="@string/title_activity_user_home_page" />
-        <activity android:name=".vendorHomePage">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

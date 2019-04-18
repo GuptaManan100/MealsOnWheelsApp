@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.mealsonwheels.Models.Vendor;
 
@@ -17,7 +18,7 @@ import com.example.mealsonwheels.Models.Vendor;
 public class vendorHomePage extends AppCompatActivity{
 
     private Vendor vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "540", "1", "1", "Foodies World", "1234567890", "10:00", "23:00", "Italian");
-    private String vendor_id = "dscsdvcdscdsv";
+    private String vendor_id = "dxasdssd";
 
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
@@ -46,14 +47,22 @@ public class vendorHomePage extends AppCompatActivity{
 //    }
 
     //------------------------------------------------------------------------------------------------------------------------
-
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_home_page);
 
         final DrawerLayout drawerLayout = findViewById(R.id.vendor_drawer);
-
+        vendor = (Vendor) getIntent().getSerializableExtra("vendorInfo");
+        vendor_id = getIntent().getStringExtra("vendorID");
+        Toast.makeText(this, vendor_id, Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("vendorinfo", vendor);
         bundle.putString("vendorID", vendor_id);

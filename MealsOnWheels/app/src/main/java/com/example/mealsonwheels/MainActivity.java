@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mealsonwheels.Models.User;
+import com.example.mealsonwheels.Models.Vendor;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -222,8 +223,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Vendor curr = child.getValue(Vendor.class);
                     Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(MainActivity.this, vendorHomePage.class);
+                    mainIntent.putExtra("vendorInfo",curr);
+                    mainIntent.putExtra("vendorID",child.getKey());
                     startActivity(mainIntent);
                     finish();
                 }

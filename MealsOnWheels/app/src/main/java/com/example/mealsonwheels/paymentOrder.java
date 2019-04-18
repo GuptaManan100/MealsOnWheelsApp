@@ -91,11 +91,13 @@ public class paymentOrder extends AppCompatActivity {
                                 Deliverer deliverer = child.getValue(Deliverer.class);
                                 newOrder.setDeliverer(child.getKey());
                                 newOrder.setDelivererName(deliverer.getName());
+                                newOrder.setStatus("Not Picked");
                                 deliverer.setIsFree("No");
                                 myRef.child("Deliverers").child(child.getKey()).setValue(deliverer);
                                 Log.d("checkout", newOrder.toString());
                                 newOrder.setPaymentMode("Cash On Delivery");
                                 newOrder.setTransactionId("None");
+                                newOrder.setDelivererLocation(",");
                                 String id = myRef.child("Transactions").child("notDelivered").push().getKey();
                                 myRef.child("Transactions").child("notDelivered").child(id).setValue(newOrder);
                                 Intent mainIntent = new Intent(paymentOrder.this, userHomePage.class);

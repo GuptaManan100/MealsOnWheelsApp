@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.example.mealsonwheels.FragmentVendorMenu;
 import com.example.mealsonwheels.Models.MenuItem;
+import com.example.mealsonwheels.Models.Vendor;
 import com.example.mealsonwheels.R;
 import com.example.mealsonwheels.VendorEditItem;
 import com.example.mealsonwheels.ViewHolder.VendorMenuViewHolder;
@@ -35,6 +36,11 @@ public class VendorMenuAdapter extends RecyclerView.Adapter<VendorMenuViewHolder
     //List<Integer> quantity;
     Context context;
     String vendor_id;
+    Vendor currVendor;
+
+    public void setCurrVendor(Vendor currVendor) {
+        this.currVendor = currVendor;
+    }
 
     public VendorMenuAdapter(Context context, String vendor_id) {
         this.menuList = new ArrayList<>();
@@ -157,7 +163,8 @@ public class VendorMenuAdapter extends RecyclerView.Adapter<VendorMenuViewHolder
                 bundle.putString("category", curr.getType());
                 bundle.putString("isSpicy", curr.getIsSpicy());
                 bundle.putString("ingredients", curr.getIngredients());
-
+                bundle.putSerializable("vendorInfo",currVendor);
+                bundle.putString("vendorID",vendor_id);
                 myIntent.putExtras(bundle);
 
                 context.startActivity(myIntent);
