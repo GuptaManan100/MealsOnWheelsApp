@@ -1,5 +1,6 @@
 package com.example.mealsonwheels;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,8 @@ import java.util.Map;
 public class VendorEditItem extends AppCompatActivity {
 
     EditText mEdit;
-
+    Vendor vendor;
+    String vendor_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,9 @@ public class VendorEditItem extends AppCompatActivity {
         String qitem_category = bundle.getString("category");
         String qitem_spicy = bundle.getString("isSpicy");
         String qitem_ingredients = bundle.getString("ingredients");
+
+        vendor = (Vendor) getIntent().getSerializableExtra("vendorInfo");
+        vendor_id = getIntent().getStringExtra("vendorID");
 
         mEdit = (EditText)findViewById(R.id.item_name);
         mEdit.setText(qitem_name);
@@ -155,23 +160,31 @@ public class VendorEditItem extends AppCompatActivity {
 
                 usersRef.setValue(userData);
 
-                mEdit = (EditText)findViewById(R.id.add_item_name);
+                Intent mainIntent = new Intent(VendorEditItem.this, vendorHomePage.class);
+                mainIntent.putExtra("vendorInfo",vendor);
+                mainIntent.putExtra("vendorID",vendor_id);
+                startActivity(mainIntent);
+                finish();
+
+                /*
+                mEdit = (EditText)findViewById(R.id.item_name);
                 mEdit.setText("");
 
-                mEdit = (EditText)findViewById(R.id.add_item_price);
+                mEdit = (EditText)findViewById(R.id.item_price);
                 mEdit.setText("");
 
-                mEdit = (EditText)findViewById(R.id.add_item_ingredients);
+                mEdit = (EditText)findViewById(R.id.item_ingredients);
                 mEdit.setText("");
 
-                mSpin = (Spinner)findViewById(R.id.add_mark_list);
+                mSpin = (Spinner)findViewById(R.id.mark_list);
                 mSpin.setSelection(0);
 
-                mSpin = (Spinner)findViewById(R.id.add_category_list);
+                mSpin = (Spinner)findViewById(R.id.category_list);
                 mSpin.setSelection(0);
 
-                spicy = (CheckBox)findViewById(R.id.add_checkbox_spicy);
-                spicy.setChecked(false);
+                spicy = (CheckBox)findViewById(R.id.checkbox_spicy);
+                spicy.setChecked(false);*/
+
 
             }
         });

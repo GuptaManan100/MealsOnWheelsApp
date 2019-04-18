@@ -98,7 +98,8 @@ public class VendorAddItem extends AppCompatActivity {
                 Map<String, String> userData = new HashMap<String, String>();
 
                 //usersRef.setValue(item_name);
-
+                if(item_mark=="Non Veg")
+                    item_mark = "NonVeg";
                 userData.put("ingredients", item_ingredients);
                 userData.put("isSpicy", item_spicy);
                 userData.put("price", item_price);

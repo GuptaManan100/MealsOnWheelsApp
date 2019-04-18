@@ -82,6 +82,7 @@ public class FragmentVendorMenu extends Fragment {
         recycler.hasFixedSize();
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new VendorMenuAdapter(getActivity(), vendor_id);
+        adapter.setCurrVendor(vendor);
         recycler.setAdapter(adapter);
 
         loadMenu();

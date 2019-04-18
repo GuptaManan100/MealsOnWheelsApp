@@ -68,8 +68,8 @@ public class FragmentVendorCurrentOrders extends Fragment {
                 List<Order> NewOrdres = new ArrayList<>();
                 List<String> NewOrdresIds = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    //Order curr = child.getValue(Order.class);
-                    Order curr = new Order();
+                    Order curr = child.getValue(Order.class);
+                    //Order curr = new Order();
                     NewOrdres.add(curr);
                     NewOrdresIds.add(child.getKey());
                     Log.d("Order History",curr.toString());
