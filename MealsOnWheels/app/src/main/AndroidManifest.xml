@@ -17,17 +17,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".paymentOrder"></activity>
-        <activity android:name=".restrauntPage" />
-        <activity android:name=".VendorAddItem"></activity>
-        <activity android:name=".VendorEditItem"></activity>
-        <activity android:name=".userSignup" />
-        <activity android:name=".deliveryHomePage" />
-        <activity android:name=".vendorHomePage" />
-        <activity
-            android:name=".userHomePage"
-            android:label="@string/title_activity_user_home_page" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".paymentOrder" android:screenOrientation="portrait"></activity>
+        <activity android:name=".restrauntPage" android:screenOrientation="portrait"/>
+        <activity android:name=".VendorAddItem" android:screenOrientation="portrait"></activity>
+        <activity android:name=".VendorEditItem" android:screenOrientation="portrait"></activity>
+        <activity android:name=".userSignup" android:screenOrientation="portrait"/>
+        <activity android:name=".deliveryHomePage" android:screenOrientation="portrait"/>
+        <activity android:name=".vendorHomePage" android:screenOrientation="portrait"/>
+        <activity android:name=".userHomePage" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

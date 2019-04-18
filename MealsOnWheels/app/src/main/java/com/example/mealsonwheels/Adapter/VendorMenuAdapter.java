@@ -137,7 +137,9 @@ public class VendorMenuAdapter extends RecyclerView.Adapter<VendorMenuViewHolder
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 dataSnapshot.getRef().removeValue();
+                                int initsize = menuList.size();
                                 menuList.remove(curr);
+                                notifyItemRemoved(x);
                             }
 
                             @Override
