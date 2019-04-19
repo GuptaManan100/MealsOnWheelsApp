@@ -105,7 +105,7 @@ public class OrderSummaryDeliverer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                // setReference();
-                customDialog("Payment Confirmation","Have you collected the cash amount from the customer", "cancelMethod1","okMethod1");
+                customDialog("Payment Confirmation","Have you collected the cash amount from the customer if Payment mode is CashOnDelivery", "cancelMethod1","okMethod1");
 
             }
         });
