@@ -82,6 +82,7 @@ public class paymentOrder extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submitButton.setEnabled(false);
                 if(cashRadio.isChecked())
                 {
                     Query query = myRef.child("Deliverers").orderByChild("isFree").equalTo("Yes");
@@ -113,11 +114,13 @@ public class paymentOrder extends AppCompatActivity {
                             }
                             if(x==0)
                             {
+                                submitButton.setEnabled(true);
                                 Toast.makeText(paymentOrder.this, "No deliverer free right now!!", Toast.LENGTH_LONG).show();
                             }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                            submitButton.setEnabled(true);
                             System.out.println("The read failed: " + databaseError.getCode());
                         }
                     });
@@ -157,11 +160,13 @@ public class paymentOrder extends AppCompatActivity {
                             }
                             if(x==0)
                             {
+                                submitButton.setEnabled(true);
                                 Toast.makeText(paymentOrder.this, "No deliverer free right now!!", Toast.LENGTH_LONG).show();
                             }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                            submitButton.setEnabled(true);
                             System.out.println("The read failed: " + databaseError.getCode());
                         }
                     });
