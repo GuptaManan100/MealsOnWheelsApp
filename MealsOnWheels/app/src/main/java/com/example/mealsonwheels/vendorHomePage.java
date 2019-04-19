@@ -13,12 +13,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.mealsonwheels.Models.Vendor;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class vendorHomePage extends AppCompatActivity{
 
-    private Vendor vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "540", "1", "1", "Foodies World", "1234567890", "10:00", "23:00", "Italian");
-    private String vendor_id = "dscsdvcdscdsv";
+    private Vendor vendor;
+    private String vendor_id;
 
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
@@ -59,9 +63,15 @@ public class vendorHomePage extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_home_page);
 
-        final DrawerLayout drawerLayout = findViewById(R.id.vendor_drawer);
         vendor = (Vendor) getIntent().getSerializableExtra("vendorInfo");
         vendor_id = getIntent().getStringExtra("vendorID");
+
+//        vendor = new Vendor("My Ass,Guwahati", "dalal.shivang@gmail.com", "540", "1", "1", "Foodies World", "1234567890", "10:00", "23:00", "Italian");
+//        vendor_id = "dscsdvcdscdsv";
+
+
+        final DrawerLayout drawerLayout = findViewById(R.id.vendor_drawer);
+
         Toast.makeText(this, vendor_id, Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putSerializable("vendorinfo", vendor);
@@ -116,6 +126,20 @@ public class vendorHomePage extends AppCompatActivity{
                             case R.id.drawer_reviews:
                                 newFrag = new FragmentVendorReviews();
                                 break;
+
+                            case R.id.drawer_logout:
+                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                        .requestIdToken("755544742392-7p01maovpemddhc3q4edkesmtnosc5q1.apps.googleusercontent.com")
+                                        .requestEmail()
+                                        .build();
+                                GoogleSignInClient  mGoogleSignInClient = GoogleSignIn.getClient(vendorHomePage.this, gso);
+                                mGoogleSignInClient.signOut();
+                                mAuth.signOut();
+                                Intent mainIntent = new Intent(vendorHomePage.this, MainActivity.class);
+                                startActivity(mainIntent);
+                                finish();
+                                return true;
 
                         }
 

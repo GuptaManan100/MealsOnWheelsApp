@@ -81,7 +81,7 @@ public class VendorPastOrderAdapter extends RecyclerView.Adapter<VendorPastOrder
         holder.customer_id.setText(curr.getCustomer());
 
         {
-            holder.back_image.setImageResource(R.color.BaseOrdered);
+            holder.back_image.setImageResource(R.color.colorBlue);
             holder.transaction_id.setTextColor(Color.BLACK);
             holder.customer_id.setTextColor(Color.BLACK);
             holder.order_date.setTextColor(Color.BLACK);

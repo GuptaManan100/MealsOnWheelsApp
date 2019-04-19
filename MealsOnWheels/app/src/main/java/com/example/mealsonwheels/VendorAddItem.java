@@ -28,14 +28,6 @@ public class VendorAddItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_add_item);
 
-        Bundle bundle = getIntent().getExtras();
-        String qitem_name = bundle.getString("name");
-        String qitem_mark = bundle.getString("mark");
-        String qitem_price = bundle.getString("price");
-        String qitem_category = bundle.getString("category");
-        String qitem_spicy = bundle.getString("isSpicy");
-        String qitem_ingredients = bundle.getString("ingredients");
-
         vendor = (Vendor) getIntent().getSerializableExtra("vendorInfo");
         vendor_id = getIntent().getStringExtra("vendorID");
 
@@ -112,9 +104,6 @@ public class VendorAddItem extends AppCompatActivity {
                 DatabaseReference usersRef = mDatabase.child("Menus").child(vendor_id).child(item_category).child(item_name);
                 Map<String, String> userData = new HashMap<String, String>();
 
-                //usersRef.setValue(item_name);
-                if(item_mark=="Non Veg")
-                    item_mark = "NonVeg";
                 userData.put("ingredients", item_ingredients);
                 userData.put("isSpicy", item_spicy);
                 userData.put("price", item_price);

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VendorEditItem">
+    tools:context=".VendorEditItem"
+    android:background="@drawable/orange_backgorund"
+    >
 
     <TextView
         android:id="@+id/textView2"
@@ -14,13 +16,16 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Enter Details"
+        android:textSize="25sp"
+        android:fontFamily="cursive"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:src="@drawable/download"
+        android:src="@drawable/burger_image"
         android:layout_width="328dp"
         android:layout_height="243dp"
         android:layout_marginStart="8dp"
@@ -88,7 +93,7 @@
 
     <EditText
         android:id="@+id/item_ingredients"
-        android:layout_width="392dp"
+        android:layout_width="377dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"

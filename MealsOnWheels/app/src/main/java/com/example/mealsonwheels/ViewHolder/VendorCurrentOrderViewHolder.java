@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.example.mealsonwheels.Interfaces.ItemClickListener;
 import com.example.mealsonwheels.R;
 
-public class VendorPastOrderViewHolder extends RecyclerView.ViewHolder {
+public class VendorCurrentOrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView transaction_id;
     public TextView order_date;
@@ -19,7 +19,7 @@ public class VendorPastOrderViewHolder extends RecyclerView.ViewHolder {
 
     private ItemClickListener itemClickListener;
 
-    public VendorPastOrderViewHolder(View itemView)
+    public VendorCurrentOrderViewHolder(View itemView)
     {
         super(itemView);
         order_date = (TextView) itemView.findViewById(R.id.darte_order);
@@ -28,5 +28,15 @@ public class VendorPastOrderViewHolder extends RecyclerView.ViewHolder {
         orderList = (TextView) itemView.findViewById(R.id.order_list);
         transaction_id = (TextView) itemView.findViewById(R.id.transaction_id);
         customer_id = (TextView) itemView.findViewById(R.id.customer_id);
+        itemView.setOnClickListener(this);
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        itemClickListener.onClick(v,getAdapterPosition(),false);
     }
 }
