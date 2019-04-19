@@ -6,4 +6,6 @@
     <color name="Basecolor">#FF7B00</color>
     <color name="BaseOrdered">#fdc6b5</color>
     <color name="BaseNotOrdered">#f85520</color>
+    <color name="colorBlue">#aaaaff</color>
+    <color name="detailBlue">#aaaaff</color>
 </resources>

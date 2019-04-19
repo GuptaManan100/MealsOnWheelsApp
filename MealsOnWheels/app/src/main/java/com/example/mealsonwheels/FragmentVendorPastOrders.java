@@ -39,8 +39,8 @@ public class FragmentVendorPastOrders extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
-        //vendor_id = bundle.getString("vendorID");
-        vendor_id = "hardikatyal2";
+        vendor_id = bundle.getString("vendorID");
+        //vendor_id = "hardikatyal2";
         vendor = (Vendor) bundle.getSerializable("vendorinfo");
         return inflater.inflate(R.layout.layout_vendor_past_orders,container,false);
     }

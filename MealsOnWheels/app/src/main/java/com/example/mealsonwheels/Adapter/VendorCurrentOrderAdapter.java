@@ -22,9 +22,11 @@ import com.example.mealsonwheels.MainActivity;
 import com.example.mealsonwheels.Models.Order;
 import com.example.mealsonwheels.Models.Review;
 import com.example.mealsonwheels.Models.Vendor;
+import com.example.mealsonwheels.PublicClasses.FlatEarthDist;
 import com.example.mealsonwheels.R;
 import com.example.mealsonwheels.ViewHolder.OrderViewHolder;
 import com.example.mealsonwheels.ViewHolder.RestrauntViewHolder;
+import com.example.mealsonwheels.ViewHolder.VendorCurrentOrderViewHolder;
 import com.example.mealsonwheels.ViewHolder.VendorPastOrderViewHolder;
 import com.example.mealsonwheels.restrauntPage;
 import com.example.mealsonwheels.vendorHomePage;
@@ -37,8 +39,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class VendorCurrentOrderAdapter extends RecyclerView.Adapter<VendorPastOrderViewHolder> {
+public class VendorCurrentOrderAdapter extends RecyclerView.Adapter<VendorCurrentOrderViewHolder> {
 
     List<Order> orderList;
     List<String>orderIds;
@@ -64,13 +67,13 @@ public class VendorCurrentOrderAdapter extends RecyclerView.Adapter<VendorPastOr
 
     @NonNull
     @Override
-    public VendorPastOrderViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public VendorCurrentOrderViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.vendor_past_order_item, viewGroup, false);
-        return new VendorPastOrderViewHolder(view);
+        return new VendorCurrentOrderViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VendorPastOrderViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull VendorCurrentOrderViewHolder holder, int i) {
         final Order curr = orderList.get(i);
         final String currId = orderIds.get(i);
 
@@ -87,10 +90,32 @@ public class VendorCurrentOrderAdapter extends RecyclerView.Adapter<VendorPastOr
             holder.order_date.setTextColor(Color.WHITE);
             holder.order_price.setTextColor(Color.WHITE);
             holder.orderList.setTextColor(Color.WHITE);
+
             holder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int position, boolean isLongClick) {
-                    Toast.makeText(context, "Tracking", Toast.LENGTH_SHORT).show();
+                    try {
+                        String custLoc = curr.getCustomerLocation();
+                        String delivererLoc = curr.getDelivererLocation();
+                        Scanner scan = new Scanner(custLoc);
+                        scan.useDelimiter(",");
+                        double custLat = scan.nextDouble();
+                        double custLong = scan.nextDouble();
+
+                        scan = new Scanner(delivererLoc);
+                        scan.useDelimiter(",");
+                        double deliverat = scan.nextDouble();
+                        double delivererLong = scan.nextDouble();
+
+                        double ans = FlatEarthDist.distance(custLat, custLong, deliverat, delivererLong);
+                        Toast.makeText(context, "Deliverer " + Math.round(ans) + " meters away", Toast.LENGTH_LONG).show();
+
+                    }
+                    catch(Exception e)
+                    {
+                        //Log.e("tracking",e.getMessage());
+                        Toast.makeText(context, "Order Status = " + curr.getStatus(), Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }

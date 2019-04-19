@@ -6,6 +6,6 @@
         <item android:id="@+id/drawer_past_orders" android:title="Past Orders" android:icon="@drawable/ic_past_orders"/>
         <item android:id="@+id/drawer_store_details" android:title="Store Details" android:icon="@drawable/ic_store_details"/>
         <item android:id="@+id/drawer_reviews" android:title="Reviews" android:icon="@drawable/ic_reviews"/>
-
+        <item android:id="@+id/drawer_logout" android:title="Log Out" android:icon="@drawable/img_logout"/>
     </group>
 </menu>

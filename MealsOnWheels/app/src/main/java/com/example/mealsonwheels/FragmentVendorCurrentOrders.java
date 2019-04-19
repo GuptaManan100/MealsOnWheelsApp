@@ -39,8 +39,8 @@ public class FragmentVendorCurrentOrders extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
-        //vendor_id = bundle.getString("vendorID");
-        vendor_id = "dscsdvcdscdsv";
+        vendor_id = bundle.getString("vendorID");
+        //vendor_id = "dscsdvcdscdsv";
         vendor = (Vendor) bundle.getSerializable("vendorinfo");
         return inflater.inflate(R.layout.layout_vendor_current_orders,container,false);
     }

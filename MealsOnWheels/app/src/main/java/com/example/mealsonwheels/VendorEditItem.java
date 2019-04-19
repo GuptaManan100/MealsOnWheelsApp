@@ -148,7 +148,7 @@ public class VendorEditItem extends AppCompatActivity {
 
 
 
-                DatabaseReference usersRef = mDatabase.child("Menus").child("dscsdvcdscdsv").child(item_category).child(item_name);
+                DatabaseReference usersRef = mDatabase.child("Menus").child(vendor_id).child(item_category).child(item_name);
                 Map<String, String> userData = new HashMap<String, String>();
 
                 //usersRef.setValue(item_name);
@@ -165,26 +165,6 @@ public class VendorEditItem extends AppCompatActivity {
                 mainIntent.putExtra("vendorID",vendor_id);
                 startActivity(mainIntent);
                 finish();
-
-                /*
-                mEdit = (EditText)findViewById(R.id.item_name);
-                mEdit.setText("");
-
-                mEdit = (EditText)findViewById(R.id.item_price);
-                mEdit.setText("");
-
-                mEdit = (EditText)findViewById(R.id.item_ingredients);
-                mEdit.setText("");
-
-                mSpin = (Spinner)findViewById(R.id.mark_list);
-                mSpin.setSelection(0);
-
-                mSpin = (Spinner)findViewById(R.id.category_list);
-                mSpin.setSelection(0);
-
-                spicy = (CheckBox)findViewById(R.id.checkbox_spicy);
-                spicy.setChecked(false);*/
-
 
             }
         });
