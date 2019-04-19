@@ -117,20 +117,6 @@ public class mapFragmentPickup extends Fragment implements OnMapReadyCallback {
                 String Location = currOrder.getCustomerLocation();
 //                Toast.makeText(getActivity(),currOrder.getCustomerLocation(), Toast.LENGTH_LONG).show();
                 locate_naviagte = currOrder.getCustomerLocation();
-                int siz = Location.length();
-                int index = siz-1;
-                for(int j=0;j<siz;j++)
-                {
-                    if(Location.charAt(j)==',')
-                    {
-                        index = j;
-                    }
-                }
-                String Longitude = Location.substring(index+1);
-                String Latitude = Location.substring(0,index);
-
-                Long = Double.parseDouble(Longitude);
-                Lat = Double.parseDouble(Latitude);
 
 
                 Query query2 = FirebaseDatabase.getInstance().getReference("Vendors");
@@ -140,11 +126,30 @@ public class mapFragmentPickup extends Fragment implements OnMapReadyCallback {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                             if(currOrder.getVendor().equals(child.getKey())){
+                                locate_naviagte = child.getValue(Vendor.class).getLocation();
                                 phone = child.getValue(Vendor.class).getPhone();
                                 address = child.getValue(Vendor.class).getAddress();
                                 vendor_name =  child.getValue(Vendor.class).getName();
                             }
                         }
+
+                        String Location = locate_naviagte;
+                        int siz = Location.length();
+                        int index = siz-1;
+                        for(int j=0;j<siz;j++)
+                        {
+                            if(Location.charAt(j)==',')
+                            {
+                                index = j;
+                            }
+                        }
+                        String Longitude = Location.substring(index+1);
+                        String Latitude = Location.substring(0,index);
+
+                        Long = Double.parseDouble(Longitude);
+                        Lat = Double.parseDouble(Latitude);
+
+
                         set_map();
 
                         Prog.setVisibility(View.INVISIBLE);

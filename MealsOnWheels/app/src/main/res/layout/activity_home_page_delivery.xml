@@ -11,7 +11,7 @@
     <FrameLayout
         android:id="@+id/fragment_container_delivery"
         android:layout_width="match_parent"
-        android:layout_height="438dp"
+        android:layout_height="374dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -53,10 +53,9 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/fragment_container_delivery"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.441" />
+        app:layout_constraintVertical_bias="0.808" />
 
     <TextView
         android:id="@+id/offline"
@@ -70,10 +69,10 @@
         android:textSize="@dimen/activity_horizontal_margin"
         app:layout_constraintBottom_toTopOf="@+id/fragment_container_delivery"
         app:layout_constraintEnd_toStartOf="@+id/isFreeSwitch"
-        app:layout_constraintHorizontal_bias="0.694"
+        app:layout_constraintHorizontal_bias="0.745"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
+        app:layout_constraintVertical_bias="0.751" />
 
     <TextView
         android:id="@+id/online"
@@ -87,9 +86,9 @@
         android:textSize="@dimen/activity_horizontal_margin"
         app:layout_constraintBottom_toTopOf="@+id/fragment_container_delivery"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toEndOf="@+id/isFreeSwitch"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
+        app:layout_constraintVertical_bias="0.751" />
 
 </android.support.constraint.ConstraintLayout>
