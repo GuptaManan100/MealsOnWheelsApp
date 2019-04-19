@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardCornerRadius="8dp"
+    android:elevation="100dp"
+    android:layout_margin="5dp"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:gravity="left"
+            android:text="Date :"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/order_date"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/text_date"
+            android:gravity="right"
+            />
+
+        <TextView
+            android:id="@+id/text_vendor"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_date"
+            android:gravity="left"
+            android:text="Vendor : "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/order_vendorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/text_vendor"
+            android:layout_below="@id/order_date"
+            android:gravity="right"
+            />
+
+        <TextView
+            android:id="@+id/text_transaction_id"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_vendor"
+            android:gravity="left"
+            android:text="Transaction ID : "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/order_transactionId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/text_transaction_id"
+            android:layout_below="@id/order_vendorName"
+            android:gravity="right"
+            />
+
+        <TextView
+            android:id="@+id/text_total_amount"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_transaction_id"
+            android:gravity="left"
+            android:text="Total Amount : "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/order_totalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/text_total_amount"
+            android:layout_below="@id/order_transactionId"
+            android:gravity="right"
+            />
+
+        <TextView
+            android:id="@+id/text_payment_mode"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_total_amount"
+            android:gravity="left"
+            android:text="Payment Mode : "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/order_payment_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/text_payment_mode"
+            android:layout_below="@id/order_totalAmount"
+            android:gravity="right"
+            />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
 
     <application
         android:allowBackup="true"
@@ -18,6 +20,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".paymentOrder" android:screenOrientation="portrait"></activity>
         <activity android:name=".restrauntPage" android:screenOrientation="portrait"/>
+        <activity android:name=".OrderSummaryDeliverer" android:screenOrientation="portrait"></activity>
+        <activity android:name=".DropLocationDeliverer" android:screenOrientation="portrait"/>
+        <activity android:name=".OrderDetails_Deliverer" android:screenOrientation="portrait"/>
+        <activity android:name=".RestaurantPickupDeliverer" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".HomePageDelivery"
+            android:label="@string/title_activity_home_page_delivery"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mealsonwheels.MainActivity"
+                android:screenOrientation="portrait"/>
+        </activity>
         <activity android:name=".VendorAddItem" android:screenOrientation="portrait"></activity>
         <activity android:name=".VendorEditItem" android:screenOrientation="portrait"></activity>
         <activity android:name=".userSignup" android:screenOrientation="portrait"/>
@@ -31,6 +46,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCYAtgdo2JCHeTcPXAgn7RHCpHhRipN6Cc" />
     </application>
 
 </manifest>
