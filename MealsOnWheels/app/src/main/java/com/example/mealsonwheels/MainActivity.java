@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.mealsonwheels.Models.Deliverer;
 import com.example.mealsonwheels.Models.User;
 import com.example.mealsonwheels.Models.Vendor;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -249,8 +250,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Deliverer curr = child.getValue(Deliverer.class);
                     Toast.makeText(MainActivity.this, "Login Successfull!!", Toast.LENGTH_LONG).show();
-                    Intent mainIntent = new Intent(MainActivity.this, deliveryHomePage.class);
+                    Intent mainIntent = new Intent(MainActivity.this, HomePageDelivery.class);
+                    mainIntent.putExtra("delivererinfo",curr);
+                    mainIntent.putExtra("delivererID",child.getKey());
                     startActivity(mainIntent);
                     finish();
                 }
