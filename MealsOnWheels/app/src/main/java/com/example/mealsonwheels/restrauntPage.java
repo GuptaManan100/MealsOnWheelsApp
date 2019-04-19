@@ -141,6 +141,11 @@ public class restrauntPage extends AppCompatActivity {
                                             newCart.put(item.getName(), new CartItem(item.getPrice(), item.getQuantity()));
                                         }
                                     }
+                                    if(newCart.size()==0)
+                                    {
+                                        Toast.makeText(restrauntPage.this, "Please add atleast 1 item", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                     amount = amount * 1.14f;
                                     newOrder.setTotalAmount(String.valueOf(amount));
                                     newOrder.setItemsOrdered(newCart);
