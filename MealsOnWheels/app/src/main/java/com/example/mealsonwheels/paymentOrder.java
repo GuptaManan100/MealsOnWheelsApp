@@ -95,7 +95,7 @@ public class paymentOrder extends AppCompatActivity {
                                 newOrder.setDeliverer(child.getKey());
                                 newOrder.setDelivererName(deliverer.getName());
                                 newOrder.setStatus("Not Picked");
-                                deliverer.setIsFree("No");
+                                deliverer.setIsFree("InProcess");
                                 myRef.child("Deliverers").child(child.getKey()).setValue(deliverer);
                                 Log.d("checkout", newOrder.toString());
                                 newOrder.setPaymentMode("Cash On Delivery");
@@ -108,6 +108,7 @@ public class paymentOrder extends AppCompatActivity {
                                 mainIntent.putExtra("userID",userID);
                                 startActivity(mainIntent);
                                 finish();
+                                Toast.makeText(paymentOrder.this, "Order Placed", Toast.LENGTH_SHORT).show();
                                 break;
                             }
                             if(x==0)
@@ -126,6 +127,44 @@ public class paymentOrder extends AppCompatActivity {
                     if (ContextCompat.checkSelfPermission(paymentOrder.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(paymentOrder.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
                     }
+                    Query query = myRef.child("Deliverers").orderByChild("isFree").equalTo("Yes");
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int x = 0;
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                x = 1;
+                                Deliverer deliverer = child.getValue(Deliverer.class);
+                                newOrder.setDeliverer(child.getKey());
+                                newOrder.setDelivererName(deliverer.getName());
+                                newOrder.setStatus("Not Picked");
+                                deliverer.setIsFree("processing");
+                                myRef.child("Deliverers").child(child.getKey()).setValue(deliverer);
+                                Log.d("checkout", newOrder.toString());
+                                newOrder.setPaymentMode("Paytm");
+                                newOrder.setDelivererLocation(",");
+                                //String id = myRef.child("Transactions").child("notDelivered").push().getKey();
+                                //myRef.child("Transactions").child("notDelivered").child(id).setValue(newOrder);
+                                Intent mainIntent = new Intent(paymentOrder.this, checksum.class);
+                                mainIntent.putExtra("userinfo",currUser);
+                                mainIntent.putExtra("userID",userID);
+                                mainIntent.putExtra("order",newOrder);
+                                mainIntent.putExtra("deliverer",deliverer);
+                                mainIntent.putExtra("deliID",child.getKey());
+                                startActivity(mainIntent);
+                                finish();
+                                break;
+                            }
+                            if(x==0)
+                            {
+                                Toast.makeText(paymentOrder.this, "No deliverer free right now!!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            System.out.println("The read failed: " + databaseError.getCode());
+                        }
+                    });
                     /*PaytmPGService Service = PaytmPGService.getStagingService();
                     HashMap<String, String> paramMap = new HashMap<String,String>();
                     paramMap.put( "MID" , "rxazcv89315285244163");
