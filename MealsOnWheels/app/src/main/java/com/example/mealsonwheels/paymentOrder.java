@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class paymentOrder extends AppCompatActivity {
 
@@ -79,6 +82,7 @@ public class paymentOrder extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submitButton.setEnabled(false);
                 if(cashRadio.isChecked())
                 {
                     Query query = myRef.child("Deliverers").orderByChild("isFree").equalTo("Yes");
@@ -92,7 +96,7 @@ public class paymentOrder extends AppCompatActivity {
                                 newOrder.setDeliverer(child.getKey());
                                 newOrder.setDelivererName(deliverer.getName());
                                 newOrder.setStatus("Not Picked");
-                                deliverer.setIsFree("No");
+                                deliverer.setIsFree("InProcess");
                                 myRef.child("Deliverers").child(child.getKey()).setValue(deliverer);
                                 Log.d("checkout", newOrder.toString());
                                 newOrder.setPaymentMode("Cash On Delivery");
@@ -105,14 +109,18 @@ public class paymentOrder extends AppCompatActivity {
                                 mainIntent.putExtra("userID",userID);
                                 startActivity(mainIntent);
                                 finish();
+                                Toast.makeText(paymentOrder.this, "Order Placed", Toast.LENGTH_SHORT).show();
+                                break;
                             }
                             if(x==0)
                             {
+                                submitButton.setEnabled(true);
                                 Toast.makeText(paymentOrder.this, "No deliverer free right now!!", Toast.LENGTH_LONG).show();
                             }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                            submitButton.setEnabled(true);
                             System.out.println("The read failed: " + databaseError.getCode());
                         }
                     });
@@ -122,36 +130,69 @@ public class paymentOrder extends AppCompatActivity {
                     if (ContextCompat.checkSelfPermission(paymentOrder.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(paymentOrder.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
                     }
+                    Query query = myRef.child("Deliverers").orderByChild("isFree").equalTo("Yes");
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int x = 0;
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                x = 1;
+                                Deliverer deliverer = child.getValue(Deliverer.class);
+                                newOrder.setDeliverer(child.getKey());
+                                newOrder.setDelivererName(deliverer.getName());
+                                newOrder.setStatus("Not Picked");
+                                deliverer.setIsFree("processing");
+                                myRef.child("Deliverers").child(child.getKey()).setValue(deliverer);
+                                Log.d("checkout", newOrder.toString());
+                                newOrder.setPaymentMode("Paytm");
+                                newOrder.setDelivererLocation(",");
+                                //String id = myRef.child("Transactions").child("notDelivered").push().getKey();
+                                //myRef.child("Transactions").child("notDelivered").child(id).setValue(newOrder);
+                                Intent mainIntent = new Intent(paymentOrder.this, checksum.class);
+                                mainIntent.putExtra("userinfo",currUser);
+                                mainIntent.putExtra("userID",userID);
+                                mainIntent.putExtra("order",newOrder);
+                                mainIntent.putExtra("deliverer",deliverer);
+                                mainIntent.putExtra("deliID",child.getKey());
+                                startActivity(mainIntent);
+                                finish();
+                                break;
+                            }
+                            if(x==0)
+                            {
+                                submitButton.setEnabled(true);
+                                Toast.makeText(paymentOrder.this, "No deliverer free right now!!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            submitButton.setEnabled(true);
+                            System.out.println("The read failed: " + databaseError.getCode());
+                        }
+                    });
+                    /*PaytmPGService Service = PaytmPGService.getStagingService();
+                    HashMap<String, String> paramMap = new HashMap<String,String>();
+                    paramMap.put( "MID" , "rxazcv89315285244163");
+// Key in your staging and production MID available in your dashboard
+                    paramMap.put( "ORDER_ID" , "order1");
+                    paramMap.put( "CUST_ID" , "cust123");
+                    paramMap.put( "MOBILE_NO" , "7777777777");
+                    paramMap.put( "EMAIL" , "username@emailprovider.com");
+                    paramMap.put( "CHANNEL_ID" , "WAP");
+                    paramMap.put( "TXN_AMOUNT" , "100.12");
+                    paramMap.put( "WEBSITE" , "WEBSTAGING");
+// This is the staging value. Production value is available in your dashboard
+                    paramMap.put( "INDUSTRY_TYPE_ID" , "Retail");
+// This is the staging value. Production value is available in your dashboard
+                    paramMap.put( "CALLBACK_URL", "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=order1");
+                    paramMap.put( "CHECKSUMHASH" , "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4=");
+                    PaytmOrder Order = new PaytmOrder(paramMap);*/
+
+                    //String checkSum =  CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum(MercahntKey, paramMap);
                 }
             }
         });
 
-        /*
-        Query query = myRef.child("Deliverers").orderByChild("isFree").equalTo("Yes");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int x = 0;
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    x = 1;
-                    Deliverer deliverer = child.getValue(Deliverer.class);
-                    Order newOrder = new Order();
-                    newOrder.setDeliverer(child.getKey());
-                    newOrder.setDelivererName(deliverer.getName());
-                    deliverer.setIsFree("InProcess");
-                    myRef.child("Deliverers").child(child.getKey()).setValue(deliverer);
-                    Log.d("checkout", newOrder.toString());
-                    break;
-                }
-                if(x==0)
-                {
-                    Toast.makeText(paymentOrder.this, "No deliverer free right now!!", Toast.LENGTH_LONG).show();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });*/
+
     }
 }
