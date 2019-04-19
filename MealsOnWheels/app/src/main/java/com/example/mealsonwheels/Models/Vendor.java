@@ -15,6 +15,7 @@ public class Vendor implements Serializable {
     private String OpeningTime;
     private String ClosingTime;
     private String Type;
+    private String location;
     public static final Comparator<Vendor> BY_RATING = new ByRating();
     public static final Comparator<Vendor> BY_RATING_DESC = new ByRatingDesc();
     public static final Comparator<Vendor> BY_NAME = new ByName();
@@ -38,6 +39,7 @@ public class Vendor implements Serializable {
                 ", OpeningTime='" + OpeningTime + '\'' +
                 ", ClosingTime='" + ClosingTime + '\'' +
                 ", Type='" + Type + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 
@@ -52,6 +54,20 @@ public class Vendor implements Serializable {
         OpeningTime = openingTime;
         ClosingTime = closingTime;
         Type = type;
+    }
+
+    public Vendor(String address, String email, String avgPrice, String rating, String noOfRatings, String name, String phone, String openingTime, String closingTime, String type, String location) {
+        Address = address;
+        Email = email;
+        this.avgPrice = avgPrice;
+        this.rating = rating;
+        this.noOfRatings = noOfRatings;
+        Name = name;
+        Phone = phone;
+        OpeningTime = openingTime;
+        ClosingTime = closingTime;
+        Type = type;
+        this.location = location;
     }
 
     public String getAvgPrice() {
