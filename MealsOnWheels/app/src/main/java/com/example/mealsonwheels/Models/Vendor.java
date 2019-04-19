@@ -150,6 +150,8 @@ public class Vendor implements Serializable {
         Type = type;
     }
 
+    public String getLocation(){return location;}
+
     private static class ByRating implements Comparator<Vendor> {
         public int compare(Vendor v, Vendor w){
             // v.name is a String, and a String object is Comparable
