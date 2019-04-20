@@ -67,13 +67,15 @@ public class OrderSummaryDeliverer extends AppCompatActivity {
                 toref = FirebaseDatabase.getInstance().getReference().child("Transactions").child("delivered");
 
                 Query query3 = FirebaseDatabase.getInstance().getReference("Users");
-                query3.addValueEventListener(new ValueEventListener() {
+                query3.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot child : dataSnapshot.getChildren()){
                             if(currOrder.getCustomer().equals(child.getKey())){
                                 address = child.getValue(User.class).getDeliveryAddress();
                                 customer_name =  child.getValue(User.class).getName();
+                                Address.setText(address);
+                                CustName.setText(customer_name);
 
                             }
                         }
@@ -139,6 +141,7 @@ public class OrderSummaryDeliverer extends AppCompatActivity {
 
             }
         });
+        ref.removeValue();
     }
 
     private void cancelMethod1(){
@@ -146,7 +149,7 @@ public class OrderSummaryDeliverer extends AppCompatActivity {
 
     private void okMethod1(){
         moveGameRoom(ref,toref);
-        ref.removeValue();
+
         currUser.setIsFree("No");
         refer.child(id).setValue(currUser);
         setActivity();

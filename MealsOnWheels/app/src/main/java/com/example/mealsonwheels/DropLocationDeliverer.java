@@ -38,7 +38,9 @@ public class DropLocationDeliverer extends AppCompatActivity implements Location
     private DatabaseReference ref;
     LocationManager locationManager;
     private Button Reached_drop;
-
+    private Query query;
+    private ValueEventListener listener;
+    private LocationListener locationListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +49,8 @@ public class DropLocationDeliverer extends AppCompatActivity implements Location
         currUser = (Deliverer) getIntent().getSerializableExtra("delivererinfo");
         id = getIntent().getStringExtra("delivererID");
         //ref = FirebaseDatabase.getInstance().getReference().child("Transactions").child("notDelivered");
-        Query query = FirebaseDatabase.getInstance().getReference().child("Transactions").child("notDelivered").orderByChild("deliverer").equalTo(id);
-        query.addValueEventListener(new ValueEventListener() {
+        query = FirebaseDatabase.getInstance().getReference().child("Transactions").child("notDelivered").orderByChild("deliverer").equalTo(id);
+        listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
@@ -64,7 +66,8 @@ public class DropLocationDeliverer extends AppCompatActivity implements Location
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        };
+        query.addListenerForSingleValueEvent(listener);
 
 
         Fragment selectFrag = new mapFragmentDrop();
@@ -75,7 +78,7 @@ public class DropLocationDeliverer extends AppCompatActivity implements Location
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_delivery_drop, selectFrag).commit();
 
-
+        locationListener = this;
     }
 
     void getLocation() {
@@ -92,6 +95,7 @@ public class DropLocationDeliverer extends AppCompatActivity implements Location
     public void onLocationChanged(Location location) {
         Location_Deliverer = (location.getLatitude() + "," + location.getLongitude());
         setRefernce();
+
         /*try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
@@ -106,6 +110,7 @@ public class DropLocationDeliverer extends AppCompatActivity implements Location
 
     private void setRefernce(){
         currOrder.setDelivererLocation(Location_Deliverer);
+        Toast.makeText(DropLocationDeliverer.this, "drtdrtduytduyt", Toast.LENGTH_SHORT).show();
         ref.setValue(currOrder);
     }
 
@@ -129,9 +134,12 @@ public class DropLocationDeliverer extends AppCompatActivity implements Location
         Reached_drop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //locationManager.removeUpdates(DropLocationDeliverer.class);
                 Intent i = new Intent(DropLocationDeliverer.this,OrderSummaryDeliverer.class);
                 i.putExtra("delivererinfo",currUser);
                 i.putExtra("delivererID",id);
+                query.removeEventListener(listener);
+                locationManager.removeUpdates(locationListener);
                 startActivity(i);
                 finish();
             }
