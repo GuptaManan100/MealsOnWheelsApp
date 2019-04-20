@@ -130,11 +130,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 Vendor currVen = dataSnapshot.getValue(Vendor.class);
-                                                int noofRating = Integer.parseInt(currVen.getNoOfRatings());
-                                                float rating = Float.parseFloat(currVen.getRating());
-                                                rating+= (Float.parseFloat(newReview.getRating()) - Float.parseFloat(rev.getRating()))/noofRating;
-                                                currVen.setRating(String.valueOf(rating));
-                                                FirebaseDatabase.getInstance().getReference().child("Vendors").child(curr.getVendor()).setValue(currVen);
+                                                if (currVen != null) {
+                                                    int noofRating = Integer.parseInt(currVen.getNoOfRatings());
+                                                    float rating = Float.parseFloat(currVen.getRating());
+                                                    rating += (Float.parseFloat(newReview.getRating()) - Float.parseFloat(rev.getRating())) / noofRating;
+                                                    currVen.setRating(String.valueOf(rating));
+                                                    FirebaseDatabase.getInstance().getReference().child("Vendors").child(curr.getVendor()).setValue(currVen);
+                                                }
                                             }
 
                                             @Override
@@ -168,13 +170,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot child) {
                                                 Vendor currVen = child.getValue(Vendor.class);
-                                                int noofRating = Integer.parseInt(currVen.getNoOfRatings());
-                                                float rating = Float.parseFloat(currVen.getRating());
-                                                rating= ((rating*noofRating) + (Float.parseFloat(newReview.getRating())))/(noofRating+1);
-                                                noofRating++;
-                                                currVen.setNoOfRatings(String.valueOf(noofRating));
-                                                currVen.setRating(String.valueOf(rating));
-                                                FirebaseDatabase.getInstance().getReference().child("Vendors").child(curr.getVendor()).setValue(currVen);
+                                                if (currVen != null) {
+                                                    int noofRating = Integer.parseInt(currVen.getNoOfRatings());
+                                                    float rating = Float.parseFloat(currVen.getRating());
+                                                    rating = ((rating * noofRating) + (Float.parseFloat(newReview.getRating()))) / (noofRating + 1);
+                                                    noofRating++;
+                                                    currVen.setNoOfRatings(String.valueOf(noofRating));
+                                                    currVen.setRating(String.valueOf(rating));
+                                                    FirebaseDatabase.getInstance().getReference().child("Vendors").child(curr.getVendor()).setValue(currVen);
+                                                }
                                             }
 
                                             @Override
